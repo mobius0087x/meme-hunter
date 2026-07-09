@@ -1,0 +1,54 @@
+name: meme-hunt
+
+# Runs the hunter in the cloud on a schedule — nothing on your local machine.
+# Every 10 min (GitHub crons can be delayed a few min under load), which is
+# fine for "here's what's hot, go look" alerting. Bump to "*/30 * * * *" for a
+# lighter half-hourly cadence.
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch: {}          # lets you trigger a run manually from the Actions tab
+
+# Serialize runs so two crons never race on the shared state cache.
+concurrency:
+  group: meme-hunt
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  hunt:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install deps
+        run: pip install -r requirements.txt
+
+      # Rolling state: restore the newest saved state.json, save a fresh one at
+      # job end (unique key => always saves). Best-effort de-dup across runs.
+      - name: Restore alert state
+        uses: actions/cache@v4
+        with:
+          path: state.json
+          key: meme-hunt-state-${{ github.run_id }}
+          restore-keys: |
+            meme-hunt-state-
+
+      - name: Hunt (one cycle)
+        env:
+          MH_TG_TOKEN: ${{ secrets.MH_TG_TOKEN }}
+          MH_TG_CHAT_ID: ${{ secrets.MH_TG_CHAT_ID }}
+          # tuning — override defaults here without touching code
+          MH_MAX_AGE_MIN: "240"
+          MH_TIER_HOT: "78"
+          MH_TIER_ALERT: "60"
+          MH_MIN_LIQ: "4000"
+        run: python -m memehunter cloud
