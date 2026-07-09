@@ -1,12 +1,12 @@
 name: meme-hunt
 
 # Runs the hunter in the cloud on a schedule — nothing on your local machine.
-# Every 10 min (GitHub crons can be delayed a few min under load), which is
-# fine for "here's what's hot, go look" alerting. Bump to "*/30 * * * *" for a
-# lighter half-hourly cadence.
+# Every 30 min (GitHub crons can be delayed a few min under load). This is a
+# "here's what's hot, go look" cadence; tighten to "*/10 * * * *" if you want
+# to catch fresher launches.
 on:
   schedule:
-    - cron: "*/10 * * * *"
+    - cron: "*/30 * * * *"
   workflow_dispatch: {}          # lets you trigger a run manually from the Actions tab
 
 # Serialize runs so two crons never race on the shared state cache.
@@ -51,4 +51,6 @@ jobs:
           MH_TIER_HOT: "78"
           MH_TIER_ALERT: "60"
           MH_MIN_LIQ: "4000"
+          # first-run flood guard aligned to the 30-min cadence
+          MH_COLD_START_AGE_MIN: "35"
         run: python -m memehunter cloud
