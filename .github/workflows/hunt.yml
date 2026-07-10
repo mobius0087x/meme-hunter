@@ -14,8 +14,10 @@ concurrency:
   group: meme-hunt
   cancel-in-progress: false
 
+# contents:write — the run commits feed/signals.json back to the repo (the web
+# console reads it from raw.githubusercontent.com; git is the database).
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   hunt:
@@ -54,3 +56,21 @@ jobs:
           # first-run flood guard aligned to the 30-min cadence
           MH_COLD_START_AGE_MIN: "35"
         run: python -m memehunter cloud
+
+      # Publish the web signal feed. generated_at changes every cycle, so this
+      # commits every run (~48/day) — accepted machine-commit noise; the commit
+      # history doubles as a cron-liveness audit trail. Push failure must not
+      # fail the job: the next run rewrites the feed from scratch anyway.
+      - name: Publish signal feed
+        if: ${{ !cancelled() }}
+        run: |
+          git config user.name "meme-hunter-cron"
+          git config user.email "mobius0083x@gmail.com"
+          git add feed/
+          if git diff --cached --quiet; then
+            echo "feed: no changes"
+          else
+            git commit -m "feed: $(date -u '+%Y-%m-%d %H:%M UTC')"
+            git pull --rebase origin main || true
+            git push origin main || echo "::warning::feed push failed (next run retries)"
+          fi

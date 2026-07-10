@@ -13,6 +13,7 @@ from typing import Dict
 
 from .analyze import Tier, Verdict, evaluate
 from .config import SETTINGS
+from .feed import write_feed
 from .notify import Notifier
 from .sources import GeckoTerminal, goplus_security
 
@@ -115,6 +116,7 @@ class Hunter:
         )
         fired = 0
         suppressed = 0
+        fired_verdicts = []
         for v in actionable:
             age = v.pool.age_min
             # cold-start guard: on the first run, silently record anything older
@@ -131,11 +133,23 @@ class Hunter:
                 v.pool.address, v.tier, v.score, SETTINGS.alert_cooldown_min
             ):
                 self.notifier.alert(v)
+                fired_verdicts.append(v)
                 fired += 1
         self.state.save()
         self.cold_start = False  # only the first cycle is a cold start
 
         rejected = sum(1 for v in verdicts if v.rejected)
+        # publish the web feed (feed/signals.json — committed by the cloud cron)
+        write_feed(
+            actionable,
+            fired_verdicts,
+            {
+                "pools": len(pools),
+                "actionable": len(actionable),
+                "alerted": fired,
+                "filtered": rejected,
+            },
+        )
         cold = f" · {suppressed} cold-start-suppressed" if suppressed else ""
         self.notifier.log(
             f"cycle {self.cycle}: {len(pools)} pools · "
