@@ -53,6 +53,11 @@ jobs:
           MH_TIER_HOT: "78"
           MH_TIER_ALERT: "60"
           MH_MIN_LIQ: "4000"
+          # third stage: graduation grade + on-chain rug gate (forensics.py).
+          # Cheap on fresh tokens; drops RUG-RISK (concentration/fed-vault) pools
+          # before they alert and tags survivors GRADUATED/GRADUATING/FRESH.
+          MH_FORENSICS: "1"
+          MH_FORENSIC_MAX: "25"
           # first-run flood guard aligned to the 30-min cadence
           MH_COLD_START_AGE_MIN: "35"
         run: python -m memehunter cloud
