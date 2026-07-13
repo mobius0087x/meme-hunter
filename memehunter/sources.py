@@ -188,6 +188,29 @@ class GeckoTerminal:
             )
         )
 
+    def token_pools_raw(self, token_address: str) -> List[Dict[str, Any]]:
+        """Every pool GeckoTerminal knows for a token, as raw dicts with a
+        `_is_quote` flag (True when the token is the pool's QUOTE side — i.e.
+        it is being used as a pairing/base currency by another token). Used by
+        forensics.graduation() to measure depth / pool-proliferation / whether
+        the token has 'graduated' to an ecosystem quote asset."""
+        payload = self._get(
+            f"/networks/{GT_NETWORK}/tokens/{token_address}/pools",
+            {"include": "base_token,quote_token"},
+        )
+        if not payload:
+            return []
+        want = token_address.lower()
+        out: List[Dict[str, Any]] = []
+        for d in payload.get("data", []):
+            a = dict(d.get("attributes", {}))
+            rel = d.get("relationships", {})
+            quote_id = (((rel.get("quote_token") or {}).get("data")) or {}).get("id", "")
+            quote_addr = (_addr_from_gt_id(quote_id) or "").lower()
+            a["_is_quote"] = (quote_addr == want)
+            out.append(a)
+        return out
+
 
 def goplus_security(token_address: str) -> Optional[Dict[str, Any]]:
     """Optional GoPlus token-security lookup. Returns None if unsupported."""

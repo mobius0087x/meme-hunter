@@ -9,12 +9,14 @@ import json
 import time
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Dict
+from typing import Dict, List, Optional
 
 from .analyze import Tier, Verdict, evaluate
 from .config import SETTINGS
 from .feed import write_feed
+from .forensics import grade as forensic_grade
 from .notify import Notifier
+from .rpc import RPC
 from .sources import GeckoTerminal, goplus_security
 
 STATE_PATH = Path(__file__).resolve().parent.parent / "state.json"
@@ -28,25 +30,57 @@ class Seen:
 
 
 class State:
+    STAGE_RANK = {"FRESH": 1, "GRADUATING": 2, "GRADUATED": 3}
+
     def __init__(self, path: Path = STATE_PATH) -> None:
         self.path = path
         self.seen: Dict[str, Seen] = {}
+        self.stages: Dict[str, Dict] = {}   # addr -> {"stage","depth"} for re-grades
         self._load()
 
     def _load(self) -> None:
         try:
             raw = json.loads(self.path.read_text())
-            self.seen = {k: Seen(**v) for k, v in raw.items()}
+            if isinstance(raw, dict) and ("seen" in raw or "stages" in raw):
+                self.seen = {k: Seen(**v) for k, v in raw.get("seen", {}).items()}
+                self.stages = raw.get("stages", {}) or {}
+            else:  # legacy flat {addr: Seen}
+                self.seen = {k: Seen(**v) for k, v in raw.items()}
+                self.stages = {}
         except (OSError, ValueError, TypeError):
             self.seen = {}
+            self.stages = {}
 
     def save(self) -> None:
         try:
-            self.path.write_text(
-                json.dumps({k: vars(v) for k, v in self.seen.items()})
-            )
+            self.path.write_text(json.dumps({
+                "seen": {k: vars(v) for k, v in self.seen.items()},
+                "stages": self.stages,
+            }))
         except OSError:
             pass
+
+    def regrade(self, addr: str, stage: str, depth: float) -> Optional[str]:
+        """Compare a fresh forensic stage/depth to what we last recorded for
+        this token. Returns 'upgrade' / 'downgrade' / None. Never fires on the
+        first sighting (no prior stage to compare against)."""
+        prev = self.stages.get(addr)
+        kind = None
+        if prev:
+            ps = prev.get("stage") or ""
+            if stage and ps and stage != ps:
+                if stage in ("RUG-RISK", "COOLING"):
+                    kind = "downgrade"
+                elif ps in ("RUG-RISK", "COOLING"):
+                    kind = "upgrade"                 # recovered out of an adverse state
+                else:
+                    kind = ("upgrade"
+                            if self.STAGE_RANK.get(stage, 0) > self.STAGE_RANK.get(ps, 0)
+                            else "downgrade")
+            elif stage == ps and prev.get("depth", 0) > 0 and depth < prev["depth"] * 0.6:
+                kind = "downgrade"                   # depth collapsed without a stage flip
+        self.stages[addr] = {"stage": stage, "depth": depth}
+        return kind
 
     def mark_seen(self, addr: str, tier: Tier, score: float) -> None:
         """Record a pool as already-surfaced without firing an alert."""
@@ -75,12 +109,60 @@ class State:
 class Hunter:
     def __init__(self) -> None:
         self.gt = GeckoTerminal()
+        self.rpc = RPC() if SETTINGS.enable_forensics else None
         self.state = State()
         self.notifier = Notifier()
         self.t = SETTINGS.thresholds
         self.cycle = 0
         # cold start = no prior state (fresh process / first-ever cron run)
         self.cold_start = len(self.state.seen) == 0
+
+    def _apply_forensics(self, actionable) -> int:
+        """Stage each actionable verdict (GRADUATED/GRADUATING/FRESH) and reject
+        RUG-RISK ones. Deep on-chain scan is spent on the top `forensic_max`
+        candidates; the rest get the cheap GeckoTerminal-only graduation tag.
+        Best-effort — a forensics failure never changes the momentum verdict.
+        Returns the number of pools rejected as RUG-RISK."""
+        if not SETTINGS.enable_forensics or self.rpc is None:
+            return 0
+        rejected = 0
+        for i, v in enumerate(actionable):
+            try:
+                fg = forensic_grade(
+                    v.pool, self.gt, self.rpc,
+                    do_rug_scan=(i < SETTINGS.forensic_max),
+                )
+            except Exception as e:  # never let forensics kill a cycle
+                self.notifier.log(f"forensics error {v.pool.base_symbol}: {e!r}")
+                continue
+            v.forensic = fg
+            v.signals = fg.grad_signals + v.signals
+            if fg.rug_flags:
+                v.warnings = fg.rug_flags + v.warnings
+                v.rejected = True
+                v.tier = Tier.IGNORE
+                v.reasons = fg.rug_flags + v.reasons
+                rejected += 1
+        return rejected
+
+    def _detect_transitions(self, graded) -> List:
+        """Fire a distinct alert when a token's forensic stage changed vs the
+        last cycle (e.g. FRESH→GRADUATING upgrade, or →RUG-RISK downgrade).
+        Returns (verdict, kind, from_stage) tuples for the web feed."""
+        events: List = []
+        for v in graded:
+            fg = getattr(v, "forensic", None)
+            if fg is None:
+                continue
+            prev_stage = self.state.stages.get(v.pool.address, {}).get("stage") or ""
+            kind = self.state.regrade(v.pool.address, fg.stage, fg.depth_usd)
+            if kind:
+                try:
+                    self.notifier.transition(v, kind, prev_stage)
+                except Exception as e:
+                    self.notifier.log(f"transition alert error {v.pool.base_symbol}: {e!r}")
+                events.append((v, kind, prev_stage))
+        return events
 
     def _collect(self) -> Dict[str, "object"]:
         # merge new + trending, de-dup by pool address (trending flags momentum)
@@ -114,6 +196,13 @@ class Hunter:
             key=lambda v: (v.tier, v.score),
             reverse=True,
         )
+        # third stage: graduation grade + on-chain rug gate. Stages every
+        # actionable pool and drops RUG-RISK ones before they can alert.
+        rug_rejected = self._apply_forensics(actionable)
+        # re-grade: fire on any stage change vs last cycle (BEFORE dropping
+        # rug-risk, so a GRADUATING->RUG-RISK downgrade still alerts).
+        transitions = self._detect_transitions(actionable)
+        actionable = [v for v in actionable if not v.rejected]
         fired = 0
         suppressed = 0
         fired_verdicts = []
@@ -148,12 +237,16 @@ class Hunter:
                 "actionable": len(actionable),
                 "alerted": fired,
                 "filtered": rejected,
+                "rug_filtered": rug_rejected,
             },
+            transitions=transitions,
         )
         cold = f" · {suppressed} cold-start-suppressed" if suppressed else ""
+        rug = f" · {rug_rejected} rug-gated" if rug_rejected else ""
+        reg = f" · {len(transitions)} re-graded" if transitions else ""
         self.notifier.log(
             f"cycle {self.cycle}: {len(pools)} pools · "
-            f"{len(actionable)} actionable · {fired} alerted · {rejected} filtered{cold}"
+            f"{len(actionable)} actionable · {fired} alerted · {rejected} filtered{rug}{reg}{cold}"
         )
 
     def run(self) -> None:

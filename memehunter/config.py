@@ -98,6 +98,12 @@ class Settings:
     telegram_chat_id: Optional[str] = field(default_factory=lambda: os.environ.get("MH_TG_CHAT_ID"))
     # optional GoPlus token-security enrichment (may not cover chain 4663 yet)
     enable_goplus: bool = field(default_factory=lambda: _s("MH_GOPLUS", "1") == "1")
+    # third stage: graduation grading + on-chain rug scan (forensics.py). The
+    # rug scan is cheap on fresh tokens (a 4h token ~= 150k blocks); it stages
+    # each actionable pool GRADUATED/GRADUATING/FRESH and drops RUG-RISK ones.
+    enable_forensics: bool = field(default_factory=lambda: _s("MH_FORENSICS", "1") == "1")
+    # cap deep on-chain scans per cycle so a cron run stays inside its budget
+    forensic_max: int = field(default_factory=lambda: _i("MH_FORENSIC_MAX", 25))
 
     @property
     def telegram_enabled(self) -> bool:
