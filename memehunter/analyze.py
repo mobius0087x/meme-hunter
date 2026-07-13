@@ -40,6 +40,7 @@ class Verdict:
     signals: List[str] = field(default_factory=list)      # positive drivers
     score_parts: Dict[str, float] = field(default_factory=dict)
     goplus: Optional[Dict[str, Any]] = None
+    forensic: Optional[Any] = None                        # forensics.ForensicGrade (3rd stage)
 
 
 def _narrative_hit(pool: Pool) -> bool:

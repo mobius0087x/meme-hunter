@@ -27,9 +27,23 @@ def entry(v: Verdict, ts: Optional[float] = None) -> Dict:
     """Flatten a Verdict into a JSON-friendly record for the web feed."""
     p = v.pool
     h1 = p.tx("h1")
+    fg = v.forensic
+    forensic = None
+    if fg is not None:
+        forensic = {
+            "stage": fg.stage,
+            "graduation_score": fg.graduation_score,
+            "depth_usd": round(fg.depth_usd, 2),
+            "material_pools": fg.n_pools,
+            "used_as_quote": fg.used_as_quote,
+            "top_holder_pct": fg.top_holder_pct,
+            "rug_scanned": fg.scanned,
+            "rug_flags": fg.rug_flags,
+        }
     return {
         "ts": int(ts if ts is not None else time.time()),
         "tier": TIER_LABEL[v.tier],
+        "stage": fg.stage if fg is not None else None,
         "score": round(v.score, 1),
         "symbol": p.base_symbol,
         "name": p.base_name or p.name,
@@ -48,6 +62,7 @@ def entry(v: Verdict, ts: Optional[float] = None) -> Dict:
         "buyers_h1": h1["buyers"],
         "signals": v.signals,
         "warnings": v.warnings,
+        "forensic": forensic,
         "links": {
             "dexscreener": p.dexscreener_url,
             "geckoterminal": p.geckoterminal_url,
