@@ -1,40 +1,342 @@
 {
  "version": 1,
  "chain": "robinhood",
- "generated_at": 1786456197,
+ "generated_at": 1786459785,
  "cycle": {
   "pools": 40,
-  "actionable": 14,
-  "alerted": 13,
-  "filtered": 9
+  "actionable": 11,
+  "alerted": 10,
+  "filtered": 11
  },
  "board": [
   {
-   "ts": 1786456197,
-   "tier": "ALERT",
-   "score": 67.3,
+   "ts": 1786459785,
+   "tier": "WATCH",
+   "score": 63.5,
+   "symbol": "$YARD",
+   "name": "TickerYard",
+   "pool": "0xa57bcf0cedcc4096b54593919f35aee35f9f3ab4",
+   "token": "0x67c71277a863cb92669c02c795d4f67211f0e753",
+   "dex": "uniswap-v2-robinhood",
+   "quote": "WETH",
+   "liquidity_usd": 31097.15,
+   "fdv_usd": 402551.09,
+   "vol_h1_usd": 418455.38,
+   "price_usd": 0.000404983069985881,
+   "price_change_h1": 4442.78,
+   "age_min": 52.1,
+   "buys_h1": 2488,
+   "sells_h1": 539,
+   "buyers_h1": 413,
+   "signals": [
+    "turnover 13.5x liq/1h",
+    "82% buys (2488/3027)",
+    "413 unique buyers/1h",
+    "accelerating 1.7x vs 1h avg",
+    "(tier capped: has warnings)"
+   ],
+   "warnings": [
+    "already +4443%/1h — late entry"
+   ],
+   "links": {
+    "dexscreener": "https://dexscreener.com/robinhood/0xa57bcf0cedcc4096b54593919f35aee35f9f3ab4",
+    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0xa57bcf0cedcc4096b54593919f35aee35f9f3ab4",
+    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x67c71277a863cb92669c02c795d4f67211f0e753&chain=robinhood"
+   }
+  },
+  {
+   "ts": 1786459785,
+   "tier": "WATCH",
+   "score": 60.3,
+   "symbol": "HM",
+   "name": "HoodMarket",
+   "pool": "0xbbac15c819d935450660470773a473e513c77bf450413349a45254cd6b241a00",
+   "token": "0x76527fda6b3df34753095b59da9c14136fe229fb",
+   "dex": "uniswap-v4-robinhood",
+   "quote": "WETH",
+   "liquidity_usd": 14875.06,
+   "fdv_usd": 10159.88,
+   "vol_h1_usd": 6564.14,
+   "price_usd": 1.02180343516015e-05,
+   "price_change_h1": 77.26,
+   "age_min": 1.5,
+   "buys_h1": 22,
+   "sells_h1": 14,
+   "buyers_h1": 16,
+   "signals": [
+    "16 unique buyers/1h",
+    "accelerating 12.0x vs 1h avg",
+    "+77%/1h uptrend",
+    "on-meta name",
+    "(tier capped: has warnings)"
+   ],
+   "warnings": [
+    "very new (1.3m) — data thin"
+   ],
+   "links": {
+    "dexscreener": "https://dexscreener.com/robinhood/0xbbac15c819d935450660470773a473e513c77bf450413349a45254cd6b241a00",
+    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0xbbac15c819d935450660470773a473e513c77bf450413349a45254cd6b241a00",
+    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x76527fda6b3df34753095b59da9c14136fe229fb&chain=robinhood"
+   }
+  },
+  {
+   "ts": 1786459785,
+   "tier": "WATCH",
+   "score": 53.9,
+   "symbol": "cheese",
+   "name": "cheese",
+   "pool": "0x4d19aa6d2868a6a4be9682f113e4485310a20675862c062acc154912a12a353b",
+   "token": "0x8fd7f01674fa40aa30f81bbb62317435f63f7777",
+   "dex": "uniswap-v4-robinhood",
+   "quote": "WETH",
+   "liquidity_usd": 14541.68,
+   "fdv_usd": 13418.24,
+   "vol_h1_usd": 8686.85,
+   "price_usd": 1.42487514397224e-05,
+   "price_change_h1": 58.42,
+   "age_min": 1.6,
+   "buys_h1": 27,
+   "sells_h1": 17,
+   "buyers_h1": 24,
+   "signals": [
+    "24 unique buyers/1h",
+    "accelerating 12.0x vs 1h avg",
+    "+58%/1h uptrend"
+   ],
+   "warnings": [
+    "very new (1.5m) — data thin"
+   ],
+   "links": {
+    "dexscreener": "https://dexscreener.com/robinhood/0x4d19aa6d2868a6a4be9682f113e4485310a20675862c062acc154912a12a353b",
+    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x4d19aa6d2868a6a4be9682f113e4485310a20675862c062acc154912a12a353b",
+    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x8fd7f01674fa40aa30f81bbb62317435f63f7777&chain=robinhood"
+   }
+  },
+  {
+   "ts": 1786459785,
+   "tier": "WATCH",
+   "score": 53.6,
+   "symbol": "HM",
+   "name": "HoodMarket",
+   "pool": "0xa04740335d125d4ff6f887330cf5320fcc9f1c81fb854a5d4e02c3a3e92affd1",
+   "token": "0x283613e72ffc8ffc0073d644d813454cdf38463b",
+   "dex": "uniswap-v4-robinhood",
+   "quote": "WETH",
+   "liquidity_usd": 21606.63,
+   "fdv_usd": 13166.13,
+   "vol_h1_usd": 4011.39,
+   "price_usd": 1.39273005313687e-05,
+   "price_change_h1": 36.63,
+   "age_min": 1.2,
+   "buys_h1": 15,
+   "sells_h1": 9,
+   "buyers_h1": 14,
+   "signals": [
+    "accelerating 12.0x vs 1h avg",
+    "+37%/1h uptrend",
+    "on-meta name"
+   ],
+   "warnings": [
+    "very new (1.1m) — data thin"
+   ],
+   "links": {
+    "dexscreener": "https://dexscreener.com/robinhood/0xa04740335d125d4ff6f887330cf5320fcc9f1c81fb854a5d4e02c3a3e92affd1",
+    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0xa04740335d125d4ff6f887330cf5320fcc9f1c81fb854a5d4e02c3a3e92affd1",
+    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x283613e72ffc8ffc0073d644d813454cdf38463b&chain=robinhood"
+   }
+  },
+  {
+   "ts": 1786459785,
+   "tier": "WATCH",
+   "score": 51.6,
+   "symbol": "UNIGEN",
+   "name": "UniGen",
+   "pool": "0x4baac1911e1fd900aa0ee1a1890ec44214adfd655a276547fafb74dd4dab4bd1",
+   "token": "0xf6c9ff3fcc8133b97ac9cffa27be6d3aa22480d2",
+   "dex": "uniswap-v4-robinhood",
+   "quote": "WETH",
+   "liquidity_usd": 5586.22,
+   "fdv_usd": 6341.8,
+   "vol_h1_usd": 1159.89,
+   "price_usd": 4.87470694618702e-06,
+   "price_change_h1": 13.34,
+   "age_min": 1.5,
+   "buys_h1": 11,
+   "sells_h1": 1,
+   "buyers_h1": 11,
+   "signals": [
+    "85% buys (11/12)",
+    "accelerating 12.0x vs 1h avg"
+   ],
+   "warnings": [
+    "very new (1.3m) — data thin",
+    "GoPlus: contract not open-source"
+   ],
+   "links": {
+    "dexscreener": "https://dexscreener.com/robinhood/0x4baac1911e1fd900aa0ee1a1890ec44214adfd655a276547fafb74dd4dab4bd1",
+    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x4baac1911e1fd900aa0ee1a1890ec44214adfd655a276547fafb74dd4dab4bd1",
+    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0xf6c9ff3fcc8133b97ac9cffa27be6d3aa22480d2&chain=robinhood"
+   }
+  },
+  {
+   "ts": 1786459785,
+   "tier": "WATCH",
+   "score": 51.0,
+   "symbol": "UNLD",
+   "name": "uniswap.land",
+   "pool": "0x8cfef833fd8d1225b6a001f7e5346c5e7739350ae79acd2d6152d874831f6af3",
+   "token": "0xc74ab864557f48d6c0d4ac02cdf1b5e7c09adeab",
+   "dex": "uniswap-v4-robinhood",
+   "quote": "WETH",
+   "liquidity_usd": 23884.37,
+   "fdv_usd": 24167.7,
+   "vol_h1_usd": 8342.39,
+   "price_usd": 2.45061584942961e-05,
+   "price_change_h1": 75.26,
+   "age_min": 1.8,
+   "buys_h1": 36,
+   "sells_h1": 23,
+   "buyers_h1": 29,
+   "signals": [
+    "29 unique buyers/1h",
+    "accelerating 12.0x vs 1h avg",
+    "+75%/1h uptrend"
+   ],
+   "warnings": [
+    "very new (1.7m) — data thin"
+   ],
+   "links": {
+    "dexscreener": "https://dexscreener.com/robinhood/0x8cfef833fd8d1225b6a001f7e5346c5e7739350ae79acd2d6152d874831f6af3",
+    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x8cfef833fd8d1225b6a001f7e5346c5e7739350ae79acd2d6152d874831f6af3",
+    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0xc74ab864557f48d6c0d4ac02cdf1b5e7c09adeab&chain=robinhood"
+   }
+  },
+  {
+   "ts": 1786459785,
+   "tier": "WATCH",
+   "score": 48.9,
+   "symbol": "FLOAT",
+   "name": "Pool Floaties",
+   "pool": "0x3acc1ee26162da48b54f03775e43bb502f98a678",
+   "token": "0x0bb3fa0023c8dff86196b63fd457af2565e5544f",
+   "dex": "sushiswap-v3-robinhood",
+   "quote": "WETH",
+   "liquidity_usd": 11486.3,
+   "fdv_usd": 10533.45,
+   "vol_h1_usd": 3233.47,
+   "price_usd": 1.07156452289514e-05,
+   "price_change_h1": 5.05,
+   "age_min": 1.5,
+   "buys_h1": 33,
+   "sells_h1": 16,
+   "buyers_h1": 24,
+   "signals": [
+    "66% buys (33/49)",
+    "24 unique buyers/1h",
+    "accelerating 12.0x vs 1h avg"
+   ],
+   "warnings": [
+    "very new (1.3m) — data thin",
+    "GoPlus: contract not open-source"
+   ],
+   "links": {
+    "dexscreener": "https://dexscreener.com/robinhood/0x3acc1ee26162da48b54f03775e43bb502f98a678",
+    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x3acc1ee26162da48b54f03775e43bb502f98a678",
+    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x0bb3fa0023c8dff86196b63fd457af2565e5544f&chain=robinhood"
+   }
+  },
+  {
+   "ts": 1786459785,
+   "tier": "WATCH",
+   "score": 48.5,
+   "symbol": "xSUSHI",
+   "name": "xSUSHI",
+   "pool": "0x283c70e3f01f4ad264b554dc4d333ebe49b7bef8",
+   "token": "0x039cf8512c8cd1ae5b554c32d346d03a7b3c5d6f",
+   "dex": "sushiswap-v3-robinhood",
+   "quote": "WETH",
+   "liquidity_usd": 11656.27,
+   "fdv_usd": 11919.93,
+   "vol_h1_usd": 1702.61,
+   "price_usd": 1.29875181704446e-05,
+   "price_change_h1": 14.79,
+   "age_min": 1.4,
+   "buys_h1": 15,
+   "sells_h1": 5,
+   "buyers_h1": 14,
+   "signals": [
+    "71% buys (15/20)",
+    "accelerating 12.0x vs 1h avg"
+   ],
+   "warnings": [
+    "very new (1.3m) — data thin",
+    "GoPlus: contract not open-source"
+   ],
+   "links": {
+    "dexscreener": "https://dexscreener.com/robinhood/0x283c70e3f01f4ad264b554dc4d333ebe49b7bef8",
+    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x283c70e3f01f4ad264b554dc4d333ebe49b7bef8",
+    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x039cf8512c8cd1ae5b554c32d346d03a7b3c5d6f&chain=robinhood"
+   }
+  },
+  {
+   "ts": 1786459785,
+   "tier": "WATCH",
+   "score": 47.7,
+   "symbol": "BAMBI",
+   "name": "The Determined Hamster",
+   "pool": "0x7a79e4f18e73c7d4b43a2f5deef930732355b3fcf01d5c8f37f9dbae442ceb46",
+   "token": "0xc2d5a9b0ad50b80111d9c9b696e3448a30071eb5",
+   "dex": "uniswap-v4-robinhood",
+   "quote": "WETH",
+   "liquidity_usd": 13545.86,
+   "fdv_usd": 9003.74,
+   "vol_h1_usd": 2774.37,
+   "price_usd": 9.29994424978084e-06,
+   "price_change_h1": 52.44,
+   "age_min": 1.3,
+   "buys_h1": 13,
+   "sells_h1": 6,
+   "buyers_h1": 13,
+   "signals": [
+    "accelerating 12.0x vs 1h avg",
+    "+52%/1h uptrend"
+   ],
+   "warnings": [
+    "very new (1.1m) — data thin"
+   ],
+   "links": {
+    "dexscreener": "https://dexscreener.com/robinhood/0x7a79e4f18e73c7d4b43a2f5deef930732355b3fcf01d5c8f37f9dbae442ceb46",
+    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x7a79e4f18e73c7d4b43a2f5deef930732355b3fcf01d5c8f37f9dbae442ceb46",
+    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0xc2d5a9b0ad50b80111d9c9b696e3448a30071eb5&chain=robinhood"
+   }
+  },
+  {
+   "ts": 1786459785,
+   "tier": "WATCH",
+   "score": 46.0,
    "symbol": "sushicat",
    "name": "sushicat",
    "pool": "0x50136d4174129585ec766eacf2f00cd1856690ca",
    "token": "0x0ab8d01664d4bb625705f9f3c595a8a19b3dcfb0",
    "dex": "sushiswap-v3-robinhood",
    "quote": "WETH",
-   "liquidity_usd": 178008.22,
-   "fdv_usd": 684268.67,
-   "vol_h1_usd": 415350.77,
-   "price_usd": 0.000665033824995451,
-   "price_change_h1": 105.08,
-   "age_min": 126.6,
-   "buys_h1": 1857,
-   "sells_h1": 1227,
-   "buyers_h1": 616,
+   "liquidity_usd": 188977.14,
+   "fdv_usd": 759447.81,
+   "vol_h1_usd": 223729.13,
+   "price_usd": 0.000758114704855922,
+   "price_change_h1": 9.31,
+   "age_min": 186.4,
+   "buys_h1": 940,
+   "sells_h1": 768,
+   "buyers_h1": 356,
    "signals": [
-    "turnover 2.3x liq/1h",
-    "616 unique buyers/1h",
-    "+105%/1h uptrend",
+    "turnover 1.2x liq/1h",
+    "356 unique buyers/1h",
     "on-meta name"
    ],
-   "warnings": [],
+   "warnings": [
+    "GoPlus: contract not open-source"
+   ],
    "links": {
     "dexscreener": "https://dexscreener.com/robinhood/0x50136d4174129585ec766eacf2f00cd1856690ca",
     "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x50136d4174129585ec766eacf2f00cd1856690ca",
@@ -42,438 +344,376 @@
    }
   },
   {
-   "ts": 1786456197,
+   "ts": 1786459785,
    "tier": "WATCH",
-   "score": 65.1,
-   "symbol": "KALEIDO",
-   "name": "Kaleido",
-   "pool": "0x6d891c9238be977e42c3c40d1b3e14f25d66a88d",
-   "token": "0x61860d3a67bd5e54777be929fb583988c7170794",
+   "score": 45.5,
+   "symbol": "BRETT",
+   "name": "BRETT",
+   "pool": "0x9caba1b2354865e5b4fc211a89ccc46729430c53",
+   "token": "0xdcd72cbf29b85d735b415f810f35861c36f82435",
    "dex": "pons-dot-family",
    "quote": "WETH",
-   "liquidity_usd": 16024.92,
-   "fdv_usd": 34515.14,
-   "vol_h1_usd": 6919.7,
-   "price_usd": 3.50337222373214e-05,
-   "price_change_h1": 271.49,
-   "age_min": 1.9,
-   "buys_h1": 26,
-   "sells_h1": 7,
-   "buyers_h1": 26,
+   "liquidity_usd": 17872.66,
+   "fdv_usd": 41253.72,
+   "vol_h1_usd": 8045.18,
+   "price_usd": 4.24640589530536e-05,
+   "price_change_h1": 311.1,
+   "age_min": 1.8,
+   "buys_h1": 79,
+   "sells_h1": 30,
+   "buyers_h1": 79,
    "signals": [
-    "76% buys (26/33)",
-    "26 unique buyers/1h",
-    "accelerating 12.0x vs 1h avg",
-    "+271%/1h uptrend",
+    "72% buys (79/109)",
+    "79 unique buyers/1h",
+    "accelerating 12.0x vs 1h avg"
+   ],
+   "warnings": [
+    "very new (1.7m) — data thin",
+    "GoPlus: contract not open-source"
+   ],
+   "links": {
+    "dexscreener": "https://dexscreener.com/robinhood/0x9caba1b2354865e5b4fc211a89ccc46729430c53",
+    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x9caba1b2354865e5b4fc211a89ccc46729430c53",
+    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0xdcd72cbf29b85d735b415f810f35861c36f82435&chain=robinhood"
+   }
+  }
+ ],
+ "alerts": [
+  {
+   "ts": 1786459785,
+   "tier": "WATCH",
+   "score": 63.5,
+   "symbol": "$YARD",
+   "name": "TickerYard",
+   "pool": "0xa57bcf0cedcc4096b54593919f35aee35f9f3ab4",
+   "token": "0x67c71277a863cb92669c02c795d4f67211f0e753",
+   "dex": "uniswap-v2-robinhood",
+   "quote": "WETH",
+   "liquidity_usd": 31097.15,
+   "fdv_usd": 402551.09,
+   "vol_h1_usd": 418455.38,
+   "price_usd": 0.000404983069985881,
+   "price_change_h1": 4442.78,
+   "age_min": 52.1,
+   "buys_h1": 2488,
+   "sells_h1": 539,
+   "buyers_h1": 413,
+   "signals": [
+    "turnover 13.5x liq/1h",
+    "82% buys (2488/3027)",
+    "413 unique buyers/1h",
+    "accelerating 1.7x vs 1h avg",
     "(tier capped: has warnings)"
+   ],
+   "warnings": [
+    "already +4443%/1h — late entry"
+   ],
+   "links": {
+    "dexscreener": "https://dexscreener.com/robinhood/0xa57bcf0cedcc4096b54593919f35aee35f9f3ab4",
+    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0xa57bcf0cedcc4096b54593919f35aee35f9f3ab4",
+    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x67c71277a863cb92669c02c795d4f67211f0e753&chain=robinhood"
+   }
+  },
+  {
+   "ts": 1786459785,
+   "tier": "WATCH",
+   "score": 60.3,
+   "symbol": "HM",
+   "name": "HoodMarket",
+   "pool": "0xbbac15c819d935450660470773a473e513c77bf450413349a45254cd6b241a00",
+   "token": "0x76527fda6b3df34753095b59da9c14136fe229fb",
+   "dex": "uniswap-v4-robinhood",
+   "quote": "WETH",
+   "liquidity_usd": 14875.06,
+   "fdv_usd": 10159.88,
+   "vol_h1_usd": 6564.14,
+   "price_usd": 1.02180343516015e-05,
+   "price_change_h1": 77.26,
+   "age_min": 1.5,
+   "buys_h1": 22,
+   "sells_h1": 14,
+   "buyers_h1": 16,
+   "signals": [
+    "16 unique buyers/1h",
+    "accelerating 12.0x vs 1h avg",
+    "+77%/1h uptrend",
+    "on-meta name",
+    "(tier capped: has warnings)"
+   ],
+   "warnings": [
+    "very new (1.3m) — data thin"
+   ],
+   "links": {
+    "dexscreener": "https://dexscreener.com/robinhood/0xbbac15c819d935450660470773a473e513c77bf450413349a45254cd6b241a00",
+    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0xbbac15c819d935450660470773a473e513c77bf450413349a45254cd6b241a00",
+    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x76527fda6b3df34753095b59da9c14136fe229fb&chain=robinhood"
+   }
+  },
+  {
+   "ts": 1786459785,
+   "tier": "WATCH",
+   "score": 53.9,
+   "symbol": "cheese",
+   "name": "cheese",
+   "pool": "0x4d19aa6d2868a6a4be9682f113e4485310a20675862c062acc154912a12a353b",
+   "token": "0x8fd7f01674fa40aa30f81bbb62317435f63f7777",
+   "dex": "uniswap-v4-robinhood",
+   "quote": "WETH",
+   "liquidity_usd": 14541.68,
+   "fdv_usd": 13418.24,
+   "vol_h1_usd": 8686.85,
+   "price_usd": 1.42487514397224e-05,
+   "price_change_h1": 58.42,
+   "age_min": 1.6,
+   "buys_h1": 27,
+   "sells_h1": 17,
+   "buyers_h1": 24,
+   "signals": [
+    "24 unique buyers/1h",
+    "accelerating 12.0x vs 1h avg",
+    "+58%/1h uptrend"
+   ],
+   "warnings": [
+    "very new (1.5m) — data thin"
+   ],
+   "links": {
+    "dexscreener": "https://dexscreener.com/robinhood/0x4d19aa6d2868a6a4be9682f113e4485310a20675862c062acc154912a12a353b",
+    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x4d19aa6d2868a6a4be9682f113e4485310a20675862c062acc154912a12a353b",
+    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x8fd7f01674fa40aa30f81bbb62317435f63f7777&chain=robinhood"
+   }
+  },
+  {
+   "ts": 1786459785,
+   "tier": "WATCH",
+   "score": 53.6,
+   "symbol": "HM",
+   "name": "HoodMarket",
+   "pool": "0xa04740335d125d4ff6f887330cf5320fcc9f1c81fb854a5d4e02c3a3e92affd1",
+   "token": "0x283613e72ffc8ffc0073d644d813454cdf38463b",
+   "dex": "uniswap-v4-robinhood",
+   "quote": "WETH",
+   "liquidity_usd": 21606.63,
+   "fdv_usd": 13166.13,
+   "vol_h1_usd": 4011.39,
+   "price_usd": 1.39273005313687e-05,
+   "price_change_h1": 36.63,
+   "age_min": 1.2,
+   "buys_h1": 15,
+   "sells_h1": 9,
+   "buyers_h1": 14,
+   "signals": [
+    "accelerating 12.0x vs 1h avg",
+    "+37%/1h uptrend",
+    "on-meta name"
+   ],
+   "warnings": [
+    "very new (1.1m) — data thin"
+   ],
+   "links": {
+    "dexscreener": "https://dexscreener.com/robinhood/0xa04740335d125d4ff6f887330cf5320fcc9f1c81fb854a5d4e02c3a3e92affd1",
+    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0xa04740335d125d4ff6f887330cf5320fcc9f1c81fb854a5d4e02c3a3e92affd1",
+    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x283613e72ffc8ffc0073d644d813454cdf38463b&chain=robinhood"
+   }
+  },
+  {
+   "ts": 1786459785,
+   "tier": "WATCH",
+   "score": 51.6,
+   "symbol": "UNIGEN",
+   "name": "UniGen",
+   "pool": "0x4baac1911e1fd900aa0ee1a1890ec44214adfd655a276547fafb74dd4dab4bd1",
+   "token": "0xf6c9ff3fcc8133b97ac9cffa27be6d3aa22480d2",
+   "dex": "uniswap-v4-robinhood",
+   "quote": "WETH",
+   "liquidity_usd": 5586.22,
+   "fdv_usd": 6341.8,
+   "vol_h1_usd": 1159.89,
+   "price_usd": 4.87470694618702e-06,
+   "price_change_h1": 13.34,
+   "age_min": 1.5,
+   "buys_h1": 11,
+   "sells_h1": 1,
+   "buyers_h1": 11,
+   "signals": [
+    "85% buys (11/12)",
+    "accelerating 12.0x vs 1h avg"
+   ],
+   "warnings": [
+    "very new (1.3m) — data thin",
+    "GoPlus: contract not open-source"
+   ],
+   "links": {
+    "dexscreener": "https://dexscreener.com/robinhood/0x4baac1911e1fd900aa0ee1a1890ec44214adfd655a276547fafb74dd4dab4bd1",
+    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x4baac1911e1fd900aa0ee1a1890ec44214adfd655a276547fafb74dd4dab4bd1",
+    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0xf6c9ff3fcc8133b97ac9cffa27be6d3aa22480d2&chain=robinhood"
+   }
+  },
+  {
+   "ts": 1786459785,
+   "tier": "WATCH",
+   "score": 51.0,
+   "symbol": "UNLD",
+   "name": "uniswap.land",
+   "pool": "0x8cfef833fd8d1225b6a001f7e5346c5e7739350ae79acd2d6152d874831f6af3",
+   "token": "0xc74ab864557f48d6c0d4ac02cdf1b5e7c09adeab",
+   "dex": "uniswap-v4-robinhood",
+   "quote": "WETH",
+   "liquidity_usd": 23884.37,
+   "fdv_usd": 24167.7,
+   "vol_h1_usd": 8342.39,
+   "price_usd": 2.45061584942961e-05,
+   "price_change_h1": 75.26,
+   "age_min": 1.8,
+   "buys_h1": 36,
+   "sells_h1": 23,
+   "buyers_h1": 29,
+   "signals": [
+    "29 unique buyers/1h",
+    "accelerating 12.0x vs 1h avg",
+    "+75%/1h uptrend"
    ],
    "warnings": [
     "very new (1.7m) — data thin"
    ],
    "links": {
-    "dexscreener": "https://dexscreener.com/robinhood/0x6d891c9238be977e42c3c40d1b3e14f25d66a88d",
-    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x6d891c9238be977e42c3c40d1b3e14f25d66a88d",
-    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x61860d3a67bd5e54777be929fb583988c7170794&chain=robinhood"
+    "dexscreener": "https://dexscreener.com/robinhood/0x8cfef833fd8d1225b6a001f7e5346c5e7739350ae79acd2d6152d874831f6af3",
+    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x8cfef833fd8d1225b6a001f7e5346c5e7739350ae79acd2d6152d874831f6af3",
+    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0xc74ab864557f48d6c0d4ac02cdf1b5e7c09adeab&chain=robinhood"
    }
   },
   {
-   "ts": 1786456197,
+   "ts": 1786459785,
    "tier": "WATCH",
-   "score": 61.7,
-   "symbol": "BLNK",
-   "name": "Blank to ink",
-   "pool": "0xf28409406d82bb98b7a216b29502dcd1a48d9c8d",
-   "token": "0xf587fde27d9865fb0fcd352bbbe2a642dd88a870",
-   "dex": "pons-dot-family",
+   "score": 48.9,
+   "symbol": "FLOAT",
+   "name": "Pool Floaties",
+   "pool": "0x3acc1ee26162da48b54f03775e43bb502f98a678",
+   "token": "0x0bb3fa0023c8dff86196b63fd457af2565e5544f",
+   "dex": "sushiswap-v3-robinhood",
    "quote": "WETH",
-   "liquidity_usd": 16090.8,
-   "fdv_usd": 33199.35,
-   "vol_h1_usd": 6908.56,
-   "price_usd": 3.28355109839823e-05,
-   "price_change_h1": 261.12,
-   "age_min": 0.9,
-   "buys_h1": 30,
-   "sells_h1": 13,
-   "buyers_h1": 16,
-   "signals": [
-    "68% buys (30/43)",
-    "16 unique buyers/1h",
-    "accelerating 12.0x vs 1h avg",
-    "+261%/1h uptrend",
-    "(tier capped: has warnings)"
-   ],
-   "warnings": [
-    "very new (0.8m) — data thin",
-    "GoPlus: contract not open-source"
-   ],
-   "links": {
-    "dexscreener": "https://dexscreener.com/robinhood/0xf28409406d82bb98b7a216b29502dcd1a48d9c8d",
-    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0xf28409406d82bb98b7a216b29502dcd1a48d9c8d",
-    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0xf587fde27d9865fb0fcd352bbbe2a642dd88a870&chain=robinhood"
-   }
-  },
-  {
-   "ts": 1786456197,
-   "tier": "WATCH",
-   "score": 59.0,
-   "symbol": "1%",
-   "name": "1% For The Trenches",
-   "pool": "0x50ef75e1ec979d54c66879c0b1a888519a3bdbaa",
-   "token": "0x2651d483313e171f12708b81f10caa5a11135b07",
-   "dex": "uniswap-v3-robinhood",
-   "quote": "WETH",
-   "liquidity_usd": 5646.83,
-   "fdv_usd": 4430.98,
-   "vol_h1_usd": 3499.94,
-   "price_usd": 4.86192249384034e-08,
-   "price_change_h1": 116.99,
-   "age_min": 2.1,
-   "buys_h1": 31,
+   "liquidity_usd": 11486.3,
+   "fdv_usd": 10533.45,
+   "vol_h1_usd": 3233.47,
+   "price_usd": 1.07156452289514e-05,
+   "price_change_h1": 5.05,
+   "age_min": 1.5,
+   "buys_h1": 33,
    "sells_h1": 16,
    "buyers_h1": 24,
    "signals": [
+    "66% buys (33/49)",
     "24 unique buyers/1h",
-    "accelerating 12.0x vs 1h avg",
-    "+117%/1h uptrend"
+    "accelerating 12.0x vs 1h avg"
    ],
    "warnings": [
-    "very new (2.0m) — data thin"
+    "very new (1.3m) — data thin",
+    "GoPlus: contract not open-source"
    ],
    "links": {
-    "dexscreener": "https://dexscreener.com/robinhood/0x50ef75e1ec979d54c66879c0b1a888519a3bdbaa",
-    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x50ef75e1ec979d54c66879c0b1a888519a3bdbaa",
-    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x2651d483313e171f12708b81f10caa5a11135b07&chain=robinhood"
+    "dexscreener": "https://dexscreener.com/robinhood/0x3acc1ee26162da48b54f03775e43bb502f98a678",
+    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x3acc1ee26162da48b54f03775e43bb502f98a678",
+    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x0bb3fa0023c8dff86196b63fd457af2565e5544f&chain=robinhood"
    }
   },
   {
-   "ts": 1786456197,
+   "ts": 1786459785,
    "tier": "WATCH",
-   "score": 56.9,
-   "symbol": "5M",
-   "name": "Speedrun to 5M",
-   "pool": "0xf2e6d51bf5ce3ab171823cc31bce3744a7f0cc5e",
-   "token": "0x0552649fc124bfceb57ae21c9276761442a46521",
+   "score": 48.5,
+   "symbol": "xSUSHI",
+   "name": "xSUSHI",
+   "pool": "0x283c70e3f01f4ad264b554dc4d333ebe49b7bef8",
+   "token": "0x039cf8512c8cd1ae5b554c32d346d03a7b3c5d6f",
    "dex": "sushiswap-v3-robinhood",
    "quote": "WETH",
-   "liquidity_usd": 14971.37,
-   "fdv_usd": 15452.42,
-   "vol_h1_usd": 3502.1,
-   "price_usd": 1.46465637881939e-05,
-   "price_change_h1": 47.82,
-   "age_min": 2.1,
-   "buys_h1": 38,
-   "sells_h1": 7,
-   "buyers_h1": 35,
+   "liquidity_usd": 11656.27,
+   "fdv_usd": 11919.93,
+   "vol_h1_usd": 1702.61,
+   "price_usd": 1.29875181704446e-05,
+   "price_change_h1": 14.79,
+   "age_min": 1.4,
+   "buys_h1": 15,
+   "sells_h1": 5,
+   "buyers_h1": 14,
    "signals": [
-    "83% buys (38/45)",
-    "35 unique buyers/1h",
-    "accelerating 12.0x vs 1h avg",
-    "+48%/1h uptrend"
-   ],
-   "warnings": [
-    "very new (2.0m) — data thin",
-    "GoPlus: contract not open-source"
-   ],
-   "links": {
-    "dexscreener": "https://dexscreener.com/robinhood/0xf2e6d51bf5ce3ab171823cc31bce3744a7f0cc5e",
-    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0xf2e6d51bf5ce3ab171823cc31bce3744a7f0cc5e",
-    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x0552649fc124bfceb57ae21c9276761442a46521&chain=robinhood"
-   }
-  },
-  {
-   "ts": 1786456197,
-   "tier": "WATCH",
-   "score": 55.8,
-   "symbol": "EXIT",
-   "name": "exit liquidity",
-   "pool": "0x3b3c5181c6b71270505d87a75556b88357ebc6936e1288be7b268703ee5b34bc",
-   "token": "0xe446c2d223667b063b1493bb403a653cca5ab464",
-   "dex": "uniswap-v4-robinhood",
-   "quote": "WETH",
-   "liquidity_usd": 17855.66,
-   "fdv_usd": 12649.65,
-   "vol_h1_usd": 8556.78,
-   "price_usd": 1.23842469870654e-05,
-   "price_change_h1": 119.4,
-   "age_min": 1.6,
-   "buys_h1": 29,
-   "sells_h1": 17,
-   "buyers_h1": 23,
-   "signals": [
-    "23 unique buyers/1h",
-    "accelerating 12.0x vs 1h avg",
-    "+119%/1h uptrend"
-   ],
-   "warnings": [
-    "very new (1.4m) — data thin"
-   ],
-   "links": {
-    "dexscreener": "https://dexscreener.com/robinhood/0x3b3c5181c6b71270505d87a75556b88357ebc6936e1288be7b268703ee5b34bc",
-    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x3b3c5181c6b71270505d87a75556b88357ebc6936e1288be7b268703ee5b34bc",
-    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0xe446c2d223667b063b1493bb403a653cca5ab464&chain=robinhood"
-   }
-  },
-  {
-   "ts": 1786456197,
-   "tier": "WATCH",
-   "score": 55.7,
-   "symbol": "Paid",
-   "name": "Paid",
-   "pool": "0xb9315aba9d304611f927db58b54e473731ae877c",
-   "token": "0x9b17c0ce1ee0f27404622b48718bdf39d244a790",
-   "dex": "pons-dot-family",
-   "quote": "WETH",
-   "liquidity_usd": 18283.61,
-   "fdv_usd": 42481.76,
-   "vol_h1_usd": 10740.24,
-   "price_usd": 4.24014446504561e-05,
-   "price_change_h1": 345.5,
-   "age_min": 2.9,
-   "buys_h1": 554,
-   "sells_h1": 45,
-   "buyers_h1": 201,
-   "signals": [
-    "92% buys (554/599)",
-    "201 unique buyers/1h",
+    "71% buys (15/20)",
     "accelerating 12.0x vs 1h avg"
    ],
    "warnings": [
-    "very new (2.8m) — data thin"
-   ],
-   "links": {
-    "dexscreener": "https://dexscreener.com/robinhood/0xb9315aba9d304611f927db58b54e473731ae877c",
-    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0xb9315aba9d304611f927db58b54e473731ae877c",
-    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x9b17c0ce1ee0f27404622b48718bdf39d244a790&chain=robinhood"
-   }
-  },
-  {
-   "ts": 1786456197,
-   "tier": "WATCH",
-   "score": 55.4,
-   "symbol": "up",
-   "name": "up",
-   "pool": "0x17b1edaa4d96b0f8f55d3aad85045a855450b291",
-   "token": "0x7470a394ffe0b80b284dbf39231ac22517577904",
-   "dex": "pons-dot-family",
-   "quote": "WETH",
-   "liquidity_usd": 19208.42,
-   "fdv_usd": 46898.18,
-   "vol_h1_usd": 10257.78,
-   "price_usd": 4.69224713850878e-05,
-   "price_change_h1": 373.07,
-   "age_min": 3.0,
-   "buys_h1": 460,
-   "sells_h1": 31,
-   "buyers_h1": 200,
-   "signals": [
-    "93% buys (460/491)",
-    "200 unique buyers/1h",
-    "accelerating 12.0x vs 1h avg"
-   ],
-   "warnings": [
-    "very new (2.8m) — data thin",
+    "very new (1.3m) — data thin",
     "GoPlus: contract not open-source"
    ],
    "links": {
-    "dexscreener": "https://dexscreener.com/robinhood/0x17b1edaa4d96b0f8f55d3aad85045a855450b291",
-    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x17b1edaa4d96b0f8f55d3aad85045a855450b291",
-    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x7470a394ffe0b80b284dbf39231ac22517577904&chain=robinhood"
+    "dexscreener": "https://dexscreener.com/robinhood/0x283c70e3f01f4ad264b554dc4d333ebe49b7bef8",
+    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x283c70e3f01f4ad264b554dc4d333ebe49b7bef8",
+    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x039cf8512c8cd1ae5b554c32d346d03a7b3c5d6f&chain=robinhood"
    }
   },
   {
-   "ts": 1786456197,
+   "ts": 1786459785,
    "tier": "WATCH",
-   "score": 54.4,
-   "symbol": "STOCKIMPAL",
-   "name": "The Stock Impaler",
-   "pool": "0x90df0bbc3de97c79058b938fb362757b4c67e3e3186af03369fc82da0e2caecd",
-   "token": "0xfa1594d17414c0ad795b0c099b2cce745faf6314",
+   "score": 47.7,
+   "symbol": "BAMBI",
+   "name": "The Determined Hamster",
+   "pool": "0x7a79e4f18e73c7d4b43a2f5deef930732355b3fcf01d5c8f37f9dbae442ceb46",
+   "token": "0xc2d5a9b0ad50b80111d9c9b696e3448a30071eb5",
    "dex": "uniswap-v4-robinhood",
    "quote": "WETH",
-   "liquidity_usd": 15514.28,
-   "fdv_usd": 12351.09,
-   "vol_h1_usd": 8057.46,
-   "price_usd": 1.33035257735278e-05,
-   "price_change_h1": 114.85,
+   "liquidity_usd": 13545.86,
+   "fdv_usd": 9003.74,
+   "vol_h1_usd": 2774.37,
+   "price_usd": 9.29994424978084e-06,
+   "price_change_h1": 52.44,
+   "age_min": 1.3,
+   "buys_h1": 13,
+   "sells_h1": 6,
+   "buyers_h1": 13,
+   "signals": [
+    "accelerating 12.0x vs 1h avg",
+    "+52%/1h uptrend"
+   ],
+   "warnings": [
+    "very new (1.1m) — data thin"
+   ],
+   "links": {
+    "dexscreener": "https://dexscreener.com/robinhood/0x7a79e4f18e73c7d4b43a2f5deef930732355b3fcf01d5c8f37f9dbae442ceb46",
+    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x7a79e4f18e73c7d4b43a2f5deef930732355b3fcf01d5c8f37f9dbae442ceb46",
+    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0xc2d5a9b0ad50b80111d9c9b696e3448a30071eb5&chain=robinhood"
+   }
+  },
+  {
+   "ts": 1786459785,
+   "tier": "WATCH",
+   "score": 45.5,
+   "symbol": "BRETT",
+   "name": "BRETT",
+   "pool": "0x9caba1b2354865e5b4fc211a89ccc46729430c53",
+   "token": "0xdcd72cbf29b85d735b415f810f35861c36f82435",
+   "dex": "pons-dot-family",
+   "quote": "WETH",
+   "liquidity_usd": 17872.66,
+   "fdv_usd": 41253.72,
+   "vol_h1_usd": 8045.18,
+   "price_usd": 4.24640589530536e-05,
+   "price_change_h1": 311.1,
    "age_min": 1.8,
-   "buys_h1": 32,
-   "sells_h1": 23,
-   "buyers_h1": 27,
+   "buys_h1": 79,
+   "sells_h1": 30,
+   "buyers_h1": 79,
    "signals": [
-    "27 unique buyers/1h",
-    "accelerating 12.0x vs 1h avg",
-    "+115%/1h uptrend"
+    "72% buys (79/109)",
+    "79 unique buyers/1h",
+    "accelerating 12.0x vs 1h avg"
    ],
    "warnings": [
-    "very new (1.6m) — data thin"
-   ],
-   "links": {
-    "dexscreener": "https://dexscreener.com/robinhood/0x90df0bbc3de97c79058b938fb362757b4c67e3e3186af03369fc82da0e2caecd",
-    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x90df0bbc3de97c79058b938fb362757b4c67e3e3186af03369fc82da0e2caecd",
-    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0xfa1594d17414c0ad795b0c099b2cce745faf6314&chain=robinhood"
-   }
-  },
-  {
-   "ts": 1786456197,
-   "tier": "WATCH",
-   "score": 51.9,
-   "symbol": "LANDWOLF",
-   "name": "Landwolf on Hood",
-   "pool": "0x899470d2533fbb5f492501a97e6619fbd82b7b15",
-   "token": "0x8907ece9cbba1e2766263b3b5126ec65ab3ff77c",
-   "dex": "pons-dot-family",
-   "quote": "WETH",
-   "liquidity_usd": 15358.92,
-   "fdv_usd": 29443.29,
-   "vol_h1_usd": 45535.66,
-   "price_usd": 2.94432884799496e-05,
-   "price_change_h1": -9.8,
-   "age_min": 239.4,
-   "buys_h1": 376,
-   "sells_h1": 345,
-   "buyers_h1": 192,
-   "signals": [
-    "turnover 3.0x liq/1h",
-    "192 unique buyers/1h",
-    "on-meta name"
-   ],
-   "warnings": [],
-   "links": {
-    "dexscreener": "https://dexscreener.com/robinhood/0x899470d2533fbb5f492501a97e6619fbd82b7b15",
-    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x899470d2533fbb5f492501a97e6619fbd82b7b15",
-    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x8907ece9cbba1e2766263b3b5126ec65ab3ff77c&chain=robinhood"
-   }
-  },
-  {
-   "ts": 1786456197,
-   "tier": "WATCH",
-   "score": 51.2,
-   "symbol": "snowball",
-   "name": "snowball",
-   "pool": "0x1d7aa3e2d957f0516684e9caec1698c281b73ba3",
-   "token": "0x81663e0802375de124734039e6b77c0201df1b2f",
-   "dex": "pons-dot-family",
-   "quote": "WETH",
-   "liquidity_usd": 25467.26,
-   "fdv_usd": 73866.88,
-   "vol_h1_usd": 32361.19,
-   "price_usd": 7.3689320131306e-05,
-   "price_change_h1": 48.81,
-   "age_min": 173.7,
-   "buys_h1": 500,
-   "sells_h1": 439,
-   "buyers_h1": 154,
-   "signals": [
-    "turnover 1.3x liq/1h",
-    "154 unique buyers/1h",
-    "accelerating 2.3x vs 1h avg",
-    "+49%/1h uptrend"
-   ],
-   "warnings": [],
-   "links": {
-    "dexscreener": "https://dexscreener.com/robinhood/0x1d7aa3e2d957f0516684e9caec1698c281b73ba3",
-    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x1d7aa3e2d957f0516684e9caec1698c281b73ba3",
-    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x81663e0802375de124734039e6b77c0201df1b2f&chain=robinhood"
-   }
-  },
-  {
-   "ts": 1786456197,
-   "tier": "WATCH",
-   "score": 46.3,
-   "symbol": "FLAMINGO",
-   "name": "Flamingo",
-   "pool": "0xd5c7c6fdff46bf5fbcfdb2682ee602129244ed5a",
-   "token": "0x060a4a3dc546b3e8be120636f8b9806757c71ef5",
-   "dex": "sushiswap-v3-robinhood",
-   "quote": "WETH",
-   "liquidity_usd": 153938.65,
-   "fdv_usd": 685757.36,
-   "vol_h1_usd": 342915.9,
-   "price_usd": 0.000675364512314397,
-   "price_change_h1": -4.12,
-   "age_min": 122.0,
-   "buys_h1": 1049,
-   "sells_h1": 847,
-   "buyers_h1": 454,
-   "signals": [
-    "turnover 2.2x liq/1h",
-    "454 unique buyers/1h"
-   ],
-   "warnings": [],
-   "links": {
-    "dexscreener": "https://dexscreener.com/robinhood/0xd5c7c6fdff46bf5fbcfdb2682ee602129244ed5a",
-    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0xd5c7c6fdff46bf5fbcfdb2682ee602129244ed5a",
-    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x060a4a3dc546b3e8be120636f8b9806757c71ef5&chain=robinhood"
-   }
-  },
-  {
-   "ts": 1786456197,
-   "tier": "WATCH",
-   "score": 45.8,
-   "symbol": "UNLD",
-   "name": "uniswap.land",
-   "pool": "0x7bc1c18492a7defa93961d3a10a393d587356d00651f724cbb876a186f9f004f",
-   "token": "0x84b9031726902a7e26355f8d2033962966f0deab",
-   "dex": "uniswap-v4-robinhood",
-   "quote": "WETH",
-   "liquidity_usd": 20185.71,
-   "fdv_usd": 17469.6,
-   "vol_h1_usd": 3075.41,
-   "price_usd": 1.86916579749071e-05,
-   "price_change_h1": 24.03,
-   "age_min": 1.1,
-   "buys_h1": 17,
-   "sells_h1": 10,
-   "buyers_h1": 16,
-   "signals": [
-    "16 unique buyers/1h",
-    "accelerating 12.0x vs 1h avg",
-    "+24%/1h uptrend"
-   ],
-   "warnings": [
-    "very new (1.0m) — data thin"
-   ],
-   "links": {
-    "dexscreener": "https://dexscreener.com/robinhood/0x7bc1c18492a7defa93961d3a10a393d587356d00651f724cbb876a186f9f004f",
-    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x7bc1c18492a7defa93961d3a10a393d587356d00651f724cbb876a186f9f004f",
-    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x84b9031726902a7e26355f8d2033962966f0deab&chain=robinhood"
-   }
-  },
-  {
-   "ts": 1786456197,
-   "tier": "WATCH",
-   "score": 44.9,
-   "symbol": "SALPHA",
-   "name": "Alpha",
-   "pool": "0x37031f6848116af2a8d4d4ab3e5537659c5ea5d143901b6344833aab3407b285",
-   "token": "0x0534a4fbe2a2c0fbfed04b115b6dd1b7f8aa7640",
-   "dex": "uniswap-pools-trade",
-   "quote": "WETH",
-   "liquidity_usd": 7789.99,
-   "fdv_usd": 9332.14,
-   "vol_h1_usd": 2002.36,
-   "price_usd": 9.37935751609958e-06,
-   "price_change_h1": 40.6,
-   "age_min": 2.2,
-   "buys_h1": 12,
-   "sells_h1": 7,
-   "buyers_h1": 12,
-   "signals": [
-    "accelerating 12.0x vs 1h avg",
-    "+41%/1h uptrend"
-   ],
-   "warnings": [
-    "very new (2.0m) — data thin",
+    "very new (1.7m) — data thin",
     "GoPlus: contract not open-source"
    ],
    "links": {
-    "dexscreener": "https://dexscreener.com/robinhood/0x37031f6848116af2a8d4d4ab3e5537659c5ea5d143901b6344833aab3407b285",
-    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x37031f6848116af2a8d4d4ab3e5537659c5ea5d143901b6344833aab3407b285",
-    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x0534a4fbe2a2c0fbfed04b115b6dd1b7f8aa7640&chain=robinhood"
+    "dexscreener": "https://dexscreener.com/robinhood/0x9caba1b2354865e5b4fc211a89ccc46729430c53",
+    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x9caba1b2354865e5b4fc211a89ccc46729430c53",
+    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0xdcd72cbf29b85d735b415f810f35861c36f82435&chain=robinhood"
    }
-  }
- ],
- "alerts": [
+  },
   {
    "ts": 1786456197,
    "tier": "ALERT",
@@ -3467,338 +3707,6 @@
     "dexscreener": "https://dexscreener.com/robinhood/0x9f9deb31ab860bfe971a6bb47da34fbccdca4c12",
     "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x9f9deb31ab860bfe971a6bb47da34fbccdca4c12",
     "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x3b538f2c6d9831aec22d358825333e30bef6eb07&chain=robinhood"
-   }
-  },
-  {
-   "ts": 1786418083,
-   "tier": "WATCH",
-   "score": 61.3,
-   "symbol": "LEVCAT",
-   "name": "LEVCAT",
-   "pool": "0x6ae1867753b390f5a1832cfb9ed1a5b5e28522c936f6e0a2bc15b5c6663a9c1c",
-   "token": "0x471e4885cacbb13f238bab8af3382a4ed8e06304",
-   "dex": "uniswap-v4-robinhood",
-   "quote": "WETH",
-   "liquidity_usd": 38567.02,
-   "fdv_usd": 78363.8,
-   "vol_h1_usd": 155551.92,
-   "price_usd": 8.49375527058594e-07,
-   "price_change_h1": 793.33,
-   "age_min": 33.9,
-   "buys_h1": 423,
-   "sells_h1": 264,
-   "buyers_h1": 274,
-   "signals": [
-    "turnover 4.0x liq/1h",
-    "274 unique buyers/1h",
-    "on-meta name",
-    "(tier capped: has warnings)"
-   ],
-   "warnings": [
-    "already +793%/1h — late entry"
-   ],
-   "links": {
-    "dexscreener": "https://dexscreener.com/robinhood/0x6ae1867753b390f5a1832cfb9ed1a5b5e28522c936f6e0a2bc15b5c6663a9c1c",
-    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x6ae1867753b390f5a1832cfb9ed1a5b5e28522c936f6e0a2bc15b5c6663a9c1c",
-    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x471e4885cacbb13f238bab8af3382a4ed8e06304&chain=robinhood"
-   }
-  },
-  {
-   "ts": 1786418083,
-   "tier": "WATCH",
-   "score": 61.0,
-   "symbol": "splashdog",
-   "name": "splashing dog",
-   "pool": "0x151948b13db92c9bac0fa556e24dd62e0692d367",
-   "token": "0xe49dd725816859116b3ac670265e6f41a8b1f4a3",
-   "dex": "uniswap-v3-robinhood",
-   "quote": "WETH",
-   "liquidity_usd": 7855.59,
-   "fdv_usd": 8794.72,
-   "vol_h1_usd": 1412.19,
-   "price_usd": 8.80633774594687e-06,
-   "price_change_h1": 53.41,
-   "age_min": 2.0,
-   "buys_h1": 16,
-   "sells_h1": 0,
-   "buyers_h1": 16,
-   "signals": [
-    "94% buys (16/16)",
-    "16 unique buyers/1h",
-    "accelerating 12.0x vs 1h avg",
-    "+53%/1h uptrend",
-    "(tier capped: has warnings)"
-   ],
-   "warnings": [
-    "very new (1.8m) — data thin"
-   ],
-   "links": {
-    "dexscreener": "https://dexscreener.com/robinhood/0x151948b13db92c9bac0fa556e24dd62e0692d367",
-    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x151948b13db92c9bac0fa556e24dd62e0692d367",
-    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0xe49dd725816859116b3ac670265e6f41a8b1f4a3&chain=robinhood"
-   }
-  },
-  {
-   "ts": 1786418083,
-   "tier": "WATCH",
-   "score": 57.3,
-   "symbol": "STONKSQUIRREL",
-   "name": "Stonk Squirrel",
-   "pool": "0xccaef4e2a091f226ceaada35371ce0688dca5b25e86d5b9d3fbbdb016ce62ea6",
-   "token": "0xdb1f5978ba07dc1970fc44ca06dc00433801b162",
-   "dex": "uniswap-pools-trade",
-   "quote": "WETH",
-   "liquidity_usd": 4742.83,
-   "fdv_usd": 4726.83,
-   "vol_h1_usd": 3363.09,
-   "price_usd": 4.72682895455228e-06,
-   "price_change_h1": -16.75,
-   "age_min": 6.3,
-   "buys_h1": 34,
-   "sells_h1": 39,
-   "buyers_h1": 33,
-   "signals": [
-    "33 unique buyers/1h",
-    "accelerating 12.0x vs 1h avg",
-    "on-meta name"
-   ],
-   "warnings": [],
-   "links": {
-    "dexscreener": "https://dexscreener.com/robinhood/0xccaef4e2a091f226ceaada35371ce0688dca5b25e86d5b9d3fbbdb016ce62ea6",
-    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0xccaef4e2a091f226ceaada35371ce0688dca5b25e86d5b9d3fbbdb016ce62ea6",
-    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0xdb1f5978ba07dc1970fc44ca06dc00433801b162&chain=robinhood"
-   }
-  },
-  {
-   "ts": 1786418083,
-   "tier": "WATCH",
-   "score": 57.0,
-   "symbol": "GTA6",
-   "name": "GTA VI",
-   "pool": "0xf2d124b9f90528d84ef1d78eba6f08e9817e0146",
-   "token": "0xefc96f4166813caac5cc4fdf04bb10a02ec8fe06",
-   "dex": "pons-dot-family",
-   "quote": "WETH",
-   "liquidity_usd": 16000.62,
-   "fdv_usd": 33008.95,
-   "vol_h1_usd": 7680.42,
-   "price_usd": 3.38947660569286e-05,
-   "price_change_h1": 261.01,
-   "age_min": 2.4,
-   "buys_h1": 72,
-   "sells_h1": 59,
-   "buyers_h1": 32,
-   "signals": [
-    "32 unique buyers/1h",
-    "accelerating 12.0x vs 1h avg",
-    "+261%/1h uptrend"
-   ],
-   "warnings": [
-    "very new (2.3m) — data thin",
-    "GoPlus: contract not open-source"
-   ],
-   "links": {
-    "dexscreener": "https://dexscreener.com/robinhood/0xf2d124b9f90528d84ef1d78eba6f08e9817e0146",
-    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0xf2d124b9f90528d84ef1d78eba6f08e9817e0146",
-    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0xefc96f4166813caac5cc4fdf04bb10a02ec8fe06&chain=robinhood"
-   }
-  },
-  {
-   "ts": 1786418083,
-   "tier": "WATCH",
-   "score": 53.1,
-   "symbol": "Gon-Chan",
-   "name": "ゴンちゃん Gon-Chan",
-   "pool": "0x7872dbea749dd0f83423646275a4608757a8f0d912b9049bd550938818f781dd",
-   "token": "0x83f202459fc8141f037d88c72bcc683f46117777",
-   "dex": "uniswap-v4-robinhood",
-   "quote": "WETH",
-   "liquidity_usd": 15258.35,
-   "fdv_usd": 13685.44,
-   "vol_h1_usd": 11405.03,
-   "price_usd": 1.3685442669934e-05,
-   "price_change_h1": 49.01,
-   "age_min": 2.6,
-   "buys_h1": 29,
-   "sells_h1": 24,
-   "buyers_h1": 24,
-   "signals": [
-    "24 unique buyers/1h",
-    "accelerating 12.0x vs 1h avg",
-    "+49%/1h uptrend"
-   ],
-   "warnings": [
-    "very new (2.5m) — data thin"
-   ],
-   "links": {
-    "dexscreener": "https://dexscreener.com/robinhood/0x7872dbea749dd0f83423646275a4608757a8f0d912b9049bd550938818f781dd",
-    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x7872dbea749dd0f83423646275a4608757a8f0d912b9049bd550938818f781dd",
-    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x83f202459fc8141f037d88c72bcc683f46117777&chain=robinhood"
-   }
-  },
-  {
-   "ts": 1786418083,
-   "tier": "WATCH",
-   "score": 52.1,
-   "symbol": "HOOK",
-   "name": "Hookpad",
-   "pool": "0x953dce011e63c1f8867b143dd36dad82ef585b35cf3e7a13d0b953fc5208748d",
-   "token": "0xf650e0bdb7df3040b0645ef921d8c6ec00ced1ef",
-   "dex": "uniswap-pools-trade",
-   "quote": "WETH",
-   "liquidity_usd": 5787.13,
-   "fdv_usd": 10124.68,
-   "vol_h1_usd": 3739.79,
-   "price_usd": 9.69262792586228e-06,
-   "price_change_h1": 89.09,
-   "age_min": 3.4,
-   "buys_h1": 19,
-   "sells_h1": 18,
-   "buyers_h1": 19,
-   "signals": [
-    "19 unique buyers/1h",
-    "accelerating 12.0x vs 1h avg",
-    "+89%/1h uptrend"
-   ],
-   "warnings": [
-    "GoPlus: contract not open-source"
-   ],
-   "links": {
-    "dexscreener": "https://dexscreener.com/robinhood/0x953dce011e63c1f8867b143dd36dad82ef585b35cf3e7a13d0b953fc5208748d",
-    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x953dce011e63c1f8867b143dd36dad82ef585b35cf3e7a13d0b953fc5208748d",
-    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0xf650e0bdb7df3040b0645ef921d8c6ec00ced1ef&chain=robinhood"
-   }
-  },
-  {
-   "ts": 1786418083,
-   "tier": "WATCH",
-   "score": 48.5,
-   "symbol": "Regulardud",
-   "name": "Just a regular dude",
-   "pool": "0x65b0da7003f0dda07c134079b81600f46c5158961a1abfd3cbd4917bba02e462",
-   "token": "0xd99d2ccee580eef13c63ad24dc96430a17ca1b07",
-   "dex": "uniswap-v4-robinhood",
-   "quote": "WETH",
-   "liquidity_usd": 7523.65,
-   "fdv_usd": 7972.99,
-   "vol_h1_usd": 5894.35,
-   "price_usd": 7.46025580002386e-08,
-   "price_change_h1": 302.12,
-   "age_min": 6.0,
-   "buys_h1": 49,
-   "sells_h1": 36,
-   "buyers_h1": 32,
-   "signals": [
-    "32 unique buyers/1h",
-    "accelerating 6.1x vs 1h avg"
-   ],
-   "warnings": [],
-   "links": {
-    "dexscreener": "https://dexscreener.com/robinhood/0x65b0da7003f0dda07c134079b81600f46c5158961a1abfd3cbd4917bba02e462",
-    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x65b0da7003f0dda07c134079b81600f46c5158961a1abfd3cbd4917bba02e462",
-    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0xd99d2ccee580eef13c63ad24dc96430a17ca1b07&chain=robinhood"
-   }
-  },
-  {
-   "ts": 1786418083,
-   "tier": "WATCH",
-   "score": 42.2,
-   "symbol": "NOVAAI",
-   "name": "NovaAi",
-   "pool": "0xb5f72db3b39893a044030cf33baebad33ce8b152",
-   "token": "0x4a49692b9d00989454acf046542e1402a8042287",
-   "dex": "pons-dot-family",
-   "quote": "WETH",
-   "liquidity_usd": 19876.79,
-   "fdv_usd": 49474.17,
-   "vol_h1_usd": 12551.66,
-   "price_usd": 5.13696619348399e-05,
-   "price_change_h1": 441.14,
-   "age_min": 4.7,
-   "buys_h1": 334,
-   "sells_h1": 254,
-   "buyers_h1": 157,
-   "signals": [
-    "157 unique buyers/1h",
-    "accelerating 12.0x vs 1h avg"
-   ],
-   "warnings": [
-    "GoPlus: contract not open-source"
-   ],
-   "links": {
-    "dexscreener": "https://dexscreener.com/robinhood/0xb5f72db3b39893a044030cf33baebad33ce8b152",
-    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0xb5f72db3b39893a044030cf33baebad33ce8b152",
-    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x4a49692b9d00989454acf046542e1402a8042287&chain=robinhood"
-   }
-  },
-  {
-   "ts": 1786410865,
-   "tier": "WATCH",
-   "score": 68.0,
-   "symbol": "TOAD",
-   "name": "El \"TOAD\" Pepe",
-   "pool": "0x93673c8eb73ec3805703f678aca0331ec074b5a5",
-   "token": "0x2972f52d5dd4d060c7fca5e3c7db5f9938fed407",
-   "dex": "pons-dot-family",
-   "quote": "WETH",
-   "liquidity_usd": 26468.45,
-   "fdv_usd": 83517.92,
-   "vol_h1_usd": 12966.46,
-   "price_usd": 8.57871014980646e-05,
-   "price_change_h1": 804.53,
-   "age_min": 5.6,
-   "buys_h1": 1068,
-   "sells_h1": 36,
-   "buyers_h1": 206,
-   "signals": [
-    "97% buys (1068/1104)",
-    "206 unique buyers/1h",
-    "accelerating 4.4x vs 1h avg",
-    "on-meta name",
-    "(tier capped: has warnings)"
-   ],
-   "warnings": [
-    "already +805%/1h — late entry",
-    "GoPlus: contract not open-source"
-   ],
-   "links": {
-    "dexscreener": "https://dexscreener.com/robinhood/0x93673c8eb73ec3805703f678aca0331ec074b5a5",
-    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x93673c8eb73ec3805703f678aca0331ec074b5a5",
-    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x2972f52d5dd4d060c7fca5e3c7db5f9938fed407&chain=robinhood"
-   }
-  },
-  {
-   "ts": 1786410865,
-   "tier": "WATCH",
-   "score": 62.4,
-   "symbol": "EAGLE",
-   "name": "Eagle Liberty DAO",
-   "pool": "0x97dccf592ce3403e516302139b33d59187cb97b6155c02244e7e0c6fee7a4ebc",
-   "token": "0x60586fe53cc492ca487437a074006bf9ca117dd7",
-   "dex": "uniswap-v4-robinhood",
-   "quote": "WETH",
-   "liquidity_usd": 32362.69,
-   "fdv_usd": 40144.21,
-   "vol_h1_usd": 18134.96,
-   "price_usd": 3.80440913227564e-05,
-   "price_change_h1": 187.3,
-   "age_min": 5.1,
-   "buys_h1": 87,
-   "sells_h1": 66,
-   "buyers_h1": 64,
-   "signals": [
-    "64 unique buyers/1h",
-    "accelerating 10.3x vs 1h avg",
-    "+187%/1h uptrend",
-    "(tier capped: has warnings)"
-   ],
-   "warnings": [
-    "GoPlus: contract not open-source"
-   ],
-   "links": {
-    "dexscreener": "https://dexscreener.com/robinhood/0x97dccf592ce3403e516302139b33d59187cb97b6155c02244e7e0c6fee7a4ebc",
-    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x97dccf592ce3403e516302139b33d59187cb97b6155c02244e7e0c6fee7a4ebc",
-    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x60586fe53cc492ca487437a074006bf9ca117dd7&chain=robinhood"
    }
   }
  ]
