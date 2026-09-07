@@ -24,6 +24,8 @@ if (-not $TakeOver) {
 if ($LASTEXITCODE -ne 0) { throw "Run gh auth login under this Windows user first" }
 & gh auth setup-git
 if ($LASTEXITCODE -ne 0) { throw "Git authentication setup failed" }
+$CanPush = & gh api "repos/$Repo" --jq '.permissions.push'
+if ($LASTEXITCODE -ne 0 -or $CanPush -ne "true") { throw "Active gh account cannot push this repository; select the owner account" }
 & git ls-remote origin main
 if ($LASTEXITCODE -ne 0) { throw "Cannot access Git remote" }
 if (Get-ScheduledTask -TaskName $TaskName -ErrorAction SilentlyContinue) {

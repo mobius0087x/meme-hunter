@@ -18,6 +18,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts/windows/install.ps1
 
 `.env` 中按需填写 Telegram token/chat ID。GitHub仓库中的Secrets不会自动下载到Windows；从原配置安全转移，勿提交到Git。默认不配置Telegram时仍有本地日志和Web feed。预检只安装依赖、运行测试和读取市场数据，不发Telegram，也不改变云端归属。
 
+GitHub账号须有本仓库推送及修改Actions变量的权限（仓库所有者为`mobius0087x`）。若有多个登录账号，用`gh auth switch --user mobius0087x`选中正确账号后再接管。
+
 本轮已在Mac完成只读数据源预检，取得40条新池/热门池记录。真实Windows任务注册与首次发布必须在目标机器验收，CI只能验证Windows上的代码测试和PowerShell语法。
 
 ## 接管
@@ -79,5 +81,16 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts/windows/return-to-cl
 ```
 
 先停用Windows任务，再设置`MH_RUNNER=cloud`；下一次云端定时任务接手。不会自动执行`test-tg`或发测试消息。
+
+## Windows离线回放
+
+冻结研究脚本在Windows用UTF-8模式运行，避免系统代码页误读中文样本：
+
+```powershell
+cd research/2026-09-07
+python -X utf8 scripts/test_replay.py
+python -X utf8 scripts/replay.py --selected-plan candles-selected-plan.json
+python -X utf8 scripts/summarize.py
+```
 
 参考：[GitHub变量与条件执行](https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/use-variables)、[Windows任务设置](https://learn.microsoft.com/en-us/powershell/module/scheduledtasks/new-scheduledtasksettingsset)。
