@@ -1,0 +1,45 @@
+{
+  "synthetic_regressions_not_market_performance": {
+    "constant_volume_10m_pool": {
+      "input_m5": 500,
+      "input_h1": 1000,
+      "true_rate_per_min": 100,
+      "legacy_acceleration_points": 20.0,
+      "legacy_signals": [
+        "accelerating 6.0x vs 1h avg"
+      ],
+      "correct_nonoverlap_acceleration": 1.0
+    },
+    "v4_poolid_as_wallet": {
+      "pool_id": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "manager_balance": 990,
+      "retail_balance": 10,
+      "supply": 1000,
+      "legacy_scanned": true,
+      "legacy_flags": [
+        "LP holds only 0.0% of supply \u2014 possible drain"
+      ],
+      "expected": "No LP withdrawal inference is possible from PoolId token balance."
+    }
+  },
+  "historical_alert_diagnostics": {
+    "WATCH": {
+      "n": 2065,
+      "age_under_5": 1603,
+      "age_under_60": 1954,
+      "claims_acceleration_12x": 1464
+    },
+    "ALERT": {
+      "n": 319,
+      "age_under_5": 174,
+      "age_under_60": 291,
+      "claims_acceleration_12x": 139
+    },
+    "HOT": {
+      "n": 21,
+      "age_under_5": 7,
+      "age_under_60": 20,
+      "claims_acceleration_12x": 4
+    }
+  }
+}

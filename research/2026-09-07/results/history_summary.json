@@ -1,0 +1,39 @@
+{
+  "snapshots": 427,
+  "observations": 2441,
+  "alert_events": 2405,
+  "unique_pools": 2399,
+  "unique_tokens": 2397,
+  "first_feed_utc": "2026-07-10T08:57:43+00:00",
+  "last_feed_utc": "2026-08-08T22:17:05+00:00",
+  "alert_tiers": {
+    "WATCH": 2065,
+    "HOT": 21,
+    "ALERT": 319
+  },
+  "observations_dex": {
+    "uniswap-v3-robinhood": 482,
+    "bankr-robinhood": 21,
+    "uniswap-v2-robinhood": 85,
+    "uniswap-v4-robinhood": 953,
+    "virtuals-robinhood": 26,
+    "pons-dot-family": 764,
+    "dyorswap-robinhood": 51,
+    "sushiswap-v3-robinhood": 5,
+    "pons-v2-dex": 3,
+    "clanker-robinhood": 1,
+    "pons-v2": 7,
+    "uniswap-pools-trade": 43
+  },
+  "median_cycle_gap_min": 85.7,
+  "max_cycle_gap_min": 578.4166666666666,
+  "pools_with_2plus_observations": 40,
+  "missing_key_issues": [],
+  "limitations": [
+    "Filtered board and emitted alerts only; rejected universe was not saved.",
+    "Publication uses max(commit time, feed generation, observation); Telegram delivery times unknown.",
+    "Alert history repeats stale prices; deduplicated by pool + original observation timestamp.",
+    "Later absent pool != zero price, dead pool, or successful exit.",
+    "Local git history only, not proof of remote completeness."
+  ]
+}
