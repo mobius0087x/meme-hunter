@@ -7,6 +7,7 @@ for links / optional enrichment so the agent still runs if they are down.
 from __future__ import annotations
 
 import time
+import math
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
@@ -24,7 +25,8 @@ _UA = {"Accept": "application/json", "User-Agent": "rh-meme-hunter/1.0"}
 
 def _num(v: Any) -> float:
     try:
-        return float(v)
+        n = float(v)
+        return n if math.isfinite(n) else 0.0
     except (TypeError, ValueError):
         return 0.0
 
@@ -57,15 +59,25 @@ class Pool:
     txns: Dict[str, Dict[str, int]]    # window -> {buys,sells,buyers,sellers}
     source: str = "geckoterminal"
     raw: Dict[str, Any] = field(default_factory=dict)
+    quote_address: str = ""
+    observed_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    discovery_sources: List[str] = field(default_factory=list)
+    missing_fields: List[str] = field(default_factory=list)
+
+    @property
+    def pool_kind(self) -> str:
+        if "v4" in self.dex.lower() or len(self.address) == 66:
+            return "singleton_pool_id"
+        return "pool_contract" if len(self.address) == 42 else "unknown"
 
     @property
     def age_min(self) -> Optional[float]:
         if not self.created_at:
             return None
-        return (datetime.now(timezone.utc) - self.created_at).total_seconds() / 60.0
+        return (self.observed_at - self.created_at).total_seconds() / 60.0
 
     def tx(self, window: str) -> Dict[str, int]:
-        return self.txns.get(window, {"buys": 0, "sells": 0, "buyers": 0, "sellers": 0})
+        return {k: self.txns.get(window, {}).get(k, 0) for k in ("buys", "sells", "buyers", "sellers")}
 
     # ---- one-tap links --------------------------------------------------
     @property
@@ -90,8 +102,9 @@ def _parse_created(s: Optional[str]) -> Optional[datetime]:
     if not s:
         return None
     try:
-        return datetime.fromisoformat(s.replace("Z", "+00:00"))
-    except ValueError:
+        value = datetime.fromisoformat(s.replace("Z", "+00:00"))
+        return value if value.tzinfo else None
+    except (ValueError, TypeError):
         return None
 
 
@@ -102,6 +115,7 @@ class GeckoTerminal:
         self._last_call = 0.0
         self._session = requests.Session()
         self._session.headers.update(_UA)
+        self.requests: List[dict] = []
 
     def _throttle(self) -> None:
         wait = SETTINGS.gt_min_interval_s - (time.monotonic() - self._last_call)
@@ -110,17 +124,28 @@ class GeckoTerminal:
 
     def _get(self, path: str, params: Optional[dict] = None) -> Optional[dict]:
         self._throttle()
+        record = {"path": path, "params": params, "requested_at": time.time(), "ok": False}
         try:
             r = self._session.get(f"{GT_BASE}{path}", params=params, timeout=20)
             self._last_call = time.monotonic()
+            record["http_status"] = r.status_code
             if r.status_code == 429:
                 time.sleep(3)
                 return None
             r.raise_for_status()
-            return r.json()
-        except requests.RequestException:
+            payload = r.json()
+            if not isinstance(payload, dict) or "data" not in payload:
+                record["error"] = "invalid_payload"
+                return None
+            record.update(ok=True, payload=payload)
+            return payload
+        except (requests.RequestException, ValueError) as exc:
+            record["error"] = type(exc).__name__
             self._last_call = time.monotonic()
             return None
+        finally:
+            record["received_at"] = time.time()
+            self.requests.append(record)
 
     def _pools_from(self, payload: Optional[dict]) -> List[Pool]:
         if not payload:
@@ -130,7 +155,8 @@ class GeckoTerminal:
             for item in payload.get("included", [])
         }
         pools: List[Pool] = []
-        for d in payload.get("data", []):
+        data = payload.get("data") or []
+        for d in ([data] if isinstance(data, dict) else data):
             a = d.get("attributes", {})
             rel = d.get("relationships", {})
             base_id = (((rel.get("base_token") or {}).get("data")) or {}).get("id")
@@ -154,6 +180,7 @@ class GeckoTerminal:
                     base_name=base_tok.get("name") or fallback_base,
                     base_address=base_tok.get("address") or _addr_from_gt_id(base_id) or "",
                     quote_symbol=quote_tok.get("symbol") or fallback_quote,
+                    quote_address=quote_tok.get("address") or _addr_from_gt_id(quote_id) or "",
                     created_at=_parse_created(a.get("pool_created_at")),
                     liquidity_usd=_num(a.get("reserve_in_usd")),
                     fdv_usd=_num(a.get("fdv_usd")),
@@ -171,6 +198,9 @@ class GeckoTerminal:
                         for k, v in (a.get("transactions") or {}).items()
                     },
                     raw=a,
+                    missing_fields=[key for key in ("reserve_in_usd", "base_token_price_usd", "pool_created_at") if a.get(key) is None]
+                        + [f"volume.{w}" for w in ("m5", "h1") if (a.get("volume_usd") or {}).get(w) is None]
+                        + [f"transactions.h1.{k}" for k in ("buys", "sells", "buyers") if ((a.get("transactions") or {}).get("h1") or {}).get(k) is None],
                 )
             )
         return pools
@@ -187,6 +217,11 @@ class GeckoTerminal:
                 {"include": "base_token,quote_token,dex", "duration": "5m"},
             )
         )
+
+    def pool(self, address: str) -> Optional[Pool]:
+        pools = self._pools_from(self._get(f"/networks/{GT_NETWORK}/pools/{address}",
+                                        {"include": "base_token,quote_token,dex"}))
+        return pools[0] if pools else None
 
     def token_pools_raw(self, token_address: str) -> List[Dict[str, Any]]:
         """Every pool GeckoTerminal knows for a token, as raw dicts with a

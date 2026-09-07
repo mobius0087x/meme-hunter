@@ -128,8 +128,8 @@ def _telegram_transition_text(v: Verdict, kind: str, from_stage: str) -> str:
 
 
 class Notifier:
-    def __init__(self) -> None:
-        self.tg = SETTINGS.telegram_enabled
+    def __init__(self, *, telegram: bool = True) -> None:
+        self.tg = telegram and SETTINGS.telegram_enabled
 
     def banner(self, text: str) -> None:
         if _HAS_RICH:

@@ -17,6 +17,8 @@ from pathlib import Path
 from typing import Dict, List, Optional
 
 from .analyze import TIER_LABEL, Verdict
+from .storage import atomic_json, RULES_VERSION
+from .config import SETTINGS
 
 FEED_PATH = Path(__file__).resolve().parent.parent / "feed" / "signals.json"
 ALERT_HISTORY_CAP = 100
@@ -40,6 +42,9 @@ def entry(v: Verdict, ts: Optional[float] = None, transition: Optional[Dict] = N
             "top_holder_pct": fg.top_holder_pct,
             "rug_scanned": fg.scanned,
             "rug_flags": fg.rug_flags,
+            "risk_status": fg.risk_status,
+            "depth_basis": "aggregate_pool_tvl_not_executable_depth",
+            "stage_basis": "market_maturity_heuristic_not_protocol_graduation",
         }
     return {
         "ts": int(ts if ts is not None else time.time()),
@@ -52,6 +57,17 @@ def entry(v: Verdict, ts: Optional[float] = None, transition: Optional[Dict] = N
         "token": p.base_address,
         "dex": p.dex,
         "quote": p.quote_symbol,
+        "quote_address": p.quote_address,
+        "quote_identity_verified": False,
+        "pool_kind": p.pool_kind,
+        "observed_at": p.observed_at.isoformat(),
+        "discovery_sources": p.discovery_sources,
+        "segment": "new_pool" if p.age_min is not None and p.age_min <= 240 else "active_or_tracked",
+        "token_age_min": None,
+        "vol_m5_usd": p.volume.get("m5"),
+        "capacity_proxy_usd": p.volume.get("m5", 0) / 5 * SETTINGS.thresholds.participation_cap,
+        "capacity_basis": "trailing_5m_average_volume_not_executable_quote",
+        "score_parts": v.score_parts,
         "liquidity_usd": round(p.liquidity_usd, 2),
         "fdv_usd": round(p.fdv_usd, 2),
         "vol_h1_usd": round(p.volume.get("h1", 0), 2),
@@ -75,7 +91,7 @@ def entry(v: Verdict, ts: Optional[float] = None, transition: Optional[Dict] = N
 
 def _load_list(path: Path, key: str) -> List[Dict]:
     try:
-        return json.loads(path.read_text()).get(key, [])
+        return json.loads(path.read_text(encoding="utf-8")).get(key, [])
     except (OSError, ValueError, TypeError):
         return []
 
@@ -106,6 +122,7 @@ def write_feed(
     trans_all = new_trans + _load_list(path, "transitions")
     payload = {
         "version": 1,
+        "rules_version": RULES_VERSION,
         "chain": "robinhood",
         "generated_at": int(now),
         "cycle": stats,
@@ -113,8 +130,4 @@ def write_feed(
         "alerts": alerts[:ALERT_HISTORY_CAP],
         "transitions": trans_all[:TRANSITION_HISTORY_CAP],
     }
-    try:
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(json.dumps(payload, ensure_ascii=False, indent=1) + "\n")
-    except OSError:
-        pass
+    atomic_json(path, payload)

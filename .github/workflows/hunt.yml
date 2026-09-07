@@ -1,6 +1,6 @@
 name: meme-hunt
 
-# Runs the hunter in the cloud on a schedule — nothing on your local machine.
+# Cloud fallback. Windows takeover sets repository variable MH_RUNNER=windows.
 # Every 30 min (GitHub crons can be delayed a few min under load). This is a
 # "here's what's hot, go look" cadence; tighten to "*/10 * * * *" if you want
 # to catch fresher launches.
@@ -21,6 +21,7 @@ permissions:
 
 jobs:
   hunt:
+    if: ${{ vars.MH_RUNNER != 'windows' }}
     runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:
@@ -57,17 +58,26 @@ jobs:
           # Cheap on fresh tokens; drops RUG-RISK (concentration/fed-vault) pools
           # before they alert and tags survivors GRADUATED/GRADUATING/FRESH.
           MH_FORENSICS: "1"
-          MH_FORENSIC_MAX: "25"
+          MH_FORENSIC_MAX: "3"
           # first-run flood guard aligned to the 30-min cadence
           MH_COLD_START_AGE_MIN: "35"
         run: python -m memehunter cloud
+
+      - name: Preserve point-in-time candidates and source responses
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: observations-${{ github.run_id }}
+          path: .runtime/archive/
+          retention-days: 14
+          if-no-files-found: warn
 
       # Publish the web signal feed. generated_at changes every cycle, so this
       # commits every run (~48/day) — accepted machine-commit noise; the commit
       # history doubles as a cron-liveness audit trail. Push failure must not
       # fail the job: the next run rewrites the feed from scratch anyway.
       - name: Publish signal feed
-        if: ${{ !cancelled() }}
+        if: ${{ success() }}
         run: |
           git config user.name "meme-hunter-cron"
           git config user.email "mobius0083x@gmail.com"
@@ -76,6 +86,6 @@ jobs:
             echo "feed: no changes"
           else
             git commit -m "feed: $(date -u '+%Y-%m-%d %H:%M UTC')"
-            git pull --rebase origin main || true
-            git push origin main || echo "::warning::feed push failed (next run retries)"
+            git pull --rebase origin main
+            git push origin main
           fi

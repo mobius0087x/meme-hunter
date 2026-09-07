@@ -14,7 +14,8 @@ from typing import Optional
 try:  # pragma: no cover - convenience only
     from dotenv import load_dotenv
 
-    load_dotenv()
+    from pathlib import Path
+    load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 except Exception:  # dotenv not installed -> rely on real env
     pass
 
@@ -58,6 +59,8 @@ NARRATIVE_KEYWORDS = {
 
 @dataclass
 class Thresholds:
+    notional_usd: float = field(default_factory=lambda: _f("MH_NOTIONAL_USD", 100))
+    participation_cap: float = field(default_factory=lambda: _f("MH_PARTICIPATION_CAP", 0.01))
     # ---- hard safety gate (fail => rejected outright) ----
     min_liquidity_usd: float = field(default_factory=lambda: _f("MH_MIN_LIQ", 4_000))
     min_buyers_h1: int = field(default_factory=lambda: _i("MH_MIN_BUYERS", 3))
@@ -83,7 +86,7 @@ class Thresholds:
 
 @dataclass
 class Settings:
-    poll_seconds: int = field(default_factory=lambda: _i("MH_POLL_SECONDS", 30))
+    poll_seconds: int = field(default_factory=lambda: _i("MH_POLL_SECONDS", 60))
     # re-alert the same token only if its tier escalates, or after this cooldown
     alert_cooldown_min: float = field(default_factory=lambda: _f("MH_COOLDOWN_MIN", 30))
     # cloud/cron cold start: on the very first run (empty state) only alert pools
@@ -103,7 +106,7 @@ class Settings:
     # each actionable pool GRADUATED/GRADUATING/FRESH and drops RUG-RISK ones.
     enable_forensics: bool = field(default_factory=lambda: _s("MH_FORENSICS", "1") == "1")
     # cap deep on-chain scans per cycle so a cron run stays inside its budget
-    forensic_max: int = field(default_factory=lambda: _i("MH_FORENSIC_MAX", 25))
+    forensic_max: int = field(default_factory=lambda: _i("MH_FORENSIC_MAX", 3))
 
     @property
     def telegram_enabled(self) -> bool:

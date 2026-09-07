@@ -13,6 +13,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from enum import IntEnum
+import math
 from typing import Any, Dict, List, Optional
 
 from .config import GOOD_QUOTE_SYMBOLS, NARRATIVE_KEYWORDS, Thresholds
@@ -85,6 +86,18 @@ def safety_gate(pool: Pool, t: Thresholds, goplus: Optional[Dict[str, Any]]) -> 
             reasons.append(f"GoPlus: tax buy {buy_tax:.0f}% / sell {sell_tax:.0f}%")
 
     # --- soft warnings ---
+    if pool.missing_fields:
+        warnings.append("missing data: " + ", ".join(pool.missing_fields))
+    if age is None or age < 0:
+        warnings.append("pool age unknown or invalid")
+    if pool.pool_kind != "pool_contract":
+        warnings.append("pool custody/holder checks unsupported — risk unverified")
+    # Screening proxy only: trailing 5m average, not a quote or executable depth.
+    v5 = pool.volume.get("m5")
+    if age is not None and age >= 5 and v5 is not None:
+        capacity = max(0, v5) / 5 * t.participation_cap
+        if capacity < t.notional_usd:
+            warnings.append(f"capacity proxy ${capacity:.0f}/min < ${t.notional_usd:.0f} size (5m average, no fill guarantee)")
     if age is not None and age < t.min_age_min:
         warnings.append(f"very new ({age:.1f}m) — data thin")
     if pool.quote_symbol and pool.quote_symbol.upper() not in GOOD_QUOTE_SYMBOLS:
@@ -136,12 +149,10 @@ def momentum_score(pool: Pool) -> tuple[float, Dict[str, float], List[str]]:
         signals.append(f"{h1['buyers']} unique buyers/1h")
 
     # 4) acceleration: is the last 5m hotter than the 1h average? (max 20)
-    rate5 = pool.volume.get("m5", 0) / 5.0
-    rate1h = pool.volume.get("h1", 0) / 60.0
-    accel = rate5 / (rate1h + 1e-9)
-    parts["acceleration"] = min(20.0, max(0.0, (accel - 1.0) * 10)) if rate1h > 0 else 0.0
-    if accel > 1.5 and rate1h > 0:
-        signals.append(f"accelerating {accel:.1f}x vs 1h avg")
+    accel = acceleration(pool)
+    parts["acceleration"] = min(20.0, max(0.0, (accel - 1.0) * 10)) if accel is not None else 0.0
+    if accel is not None and accel > 1.5:
+        signals.append(f"accelerating {accel:.1f}x vs prior non-overlapping window")
 
     # 5) price change: reward an early uptrend, punish both already-mooned tops
     #    and active dumps (high turnover on a -60% candle is distribution).
@@ -175,6 +186,17 @@ def momentum_score(pool: Pool) -> tuple[float, Dict[str, float], List[str]]:
 
     score = max(0.0, min(100.0, sum(parts.values())))
     return score, parts, signals
+
+
+def acceleration(pool: Pool) -> Optional[float]:
+    """Disjoint, age-adjusted rates; insufficient/first activity is unknown."""
+    age = pool.age_min
+    v5, v60 = pool.volume.get("m5"), pool.volume.get("h1")
+    if age is None or age < 15 or v5 is None or v60 is None:
+        return None
+    if not all(math.isfinite(v) and v >= 0 for v in (v5, v60)) or v60 <= v5:
+        return None
+    return (v5 / 5) / ((v60 - v5) / (min(age, 60) - 5))
 
 
 def evaluate(pool: Pool, t: Thresholds, goplus: Optional[Dict[str, Any]] = None) -> Verdict:

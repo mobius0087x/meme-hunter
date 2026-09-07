@@ -36,20 +36,22 @@ def cmd_scan() -> None:
     gt = GeckoTerminal()
     t = SETTINGS.thresholds
     pools = {}
-    for p in gt.new_pools() + gt.trending_pools():
-        if p.address:
-            pools.setdefault(p.address, p)
+    for source, candidates in (("new", gt.new_pools()), ("trending", gt.trending_pools())):
+        for p in candidates:
+            if p.address:
+                pools.setdefault(p.address, p)
+                pools[p.address].discovery_sources.append(source)
     verdicts = [
         evaluate(p, t)
         for p in pools.values()
-        if p.age_min is None or p.age_min <= t.max_age_min  # early-hunt window
+        if p.age_min is None or p.age_min <= t.max_age_min or "trending" in p.discovery_sources
     ]
     shown = sorted(
         (v for v in verdicts if not v.rejected and v.tier >= Tier.WATCH),
         key=lambda v: (v.tier, v.score),
         reverse=True,
     )
-    n = Notifier()
+    n = Notifier(telegram=False)
     n.banner(f"scan · {len(pools)} pools · {len(shown)} actionable")
     for v in shown:
         n.alert(v)

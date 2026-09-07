@@ -56,6 +56,7 @@ class ForensicGrade:
     used_as_quote: bool = False
     top_holder_pct: Optional[float] = None      # largest real (non-pool/non-infra) holder
     scanned: bool = False                        # did the on-chain rug scan complete?
+    risk_status: str = "unverified"
     rug_flags: List[str] = field(default_factory=list)
     grad_signals: List[str] = field(default_factory=list)
 
@@ -132,6 +133,11 @@ def _reconstruct(rpc: RPC, token: str, start: int, latest: int
 
 def rug_scan(rpc: RPC, token: str, pool_addr: str, age_min: Optional[float]) -> ForensicGrade:
     g = ForensicGrade()
+    # A v4 bytes32 PoolId is not a custody address. Holder attribution needs
+    # a verified PoolManager/hook adapter; do not run address-based heuristics.
+    if len(pool_addr) != 42:
+        g.risk_status = "unsupported_pool_identity"
+        return g
     latest = rpc.block_number()
     if latest is None:
         return g
@@ -146,7 +152,7 @@ def rug_scan(rpc: RPC, token: str, pool_addr: str, age_min: Optional[float]) -> 
     if rec is None:
         return g
     bal, minted = rec
-    supply = rpc.total_supply(token) or minted
+    supply = rpc.total_supply(token)
     if not supply:
         return g
 
@@ -163,6 +169,7 @@ def rug_scan(rpc: RPC, token: str, pool_addr: str, age_min: Optional[float]) -> 
         return g  # incomplete — leave scanned=False, rely on graduation grade
 
     g.scanned = True
+    g.risk_status = "holder_heuristics_only"
     pool_l = pool_addr.lower()
     holders = sorted(((a, v) for a, v in bal.items()
                       if v > 0 and a not in (ZERO, DEAD) and a != pool_l),
@@ -185,11 +192,8 @@ def rug_scan(rpc: RPC, token: str, pool_addr: str, age_min: Optional[float]) -> 
     if top_real_pct >= RUG_TOP_HOLDER_PCT:
         g.rug_flags.append(f"single wallet holds {top_real_pct:.1f}% (excl pool/router)")
 
-    # LP drain: almost nothing left in the pool relative to supply on an
-    # already-aged token => liquidity pulled.
-    lp_pct = 100.0 * bal.get(pool_l, 0) / supply
-    if age_min and age_min > 60 and lp_pct < 1.0:
-        g.rug_flags.append(f"LP holds only {lp_pct:.1f}% of supply — possible drain")
+    # A small pool/supply ratio alone proves no withdrawal, even for v2/v3.
+    # Drain detection requires a time series of reserves/positions.
     return g
 
 
@@ -208,12 +212,19 @@ def grade(pool: Pool, gt: GeckoTerminal, rpc: Optional[RPC] = None,
         tp = []
     g = graduation(pool, tp)
 
-    if rpc is not None and do_rug_scan and token:
+    if pool.pool_kind != "pool_contract":
+        g.risk_status = "unsupported_pool_identity"
+    elif rpc is not None and do_rug_scan and token:
         try:
+            errors_before = rpc.errors
             rg = rug_scan(rpc, token, pool.address, pool.age_min)
-            g.scanned = rg.scanned
-            g.top_holder_pct = rg.top_holder_pct
-            g.rug_flags = rg.rug_flags
+            if rpc.errors != errors_before:
+                g.risk_status = "rpc_incomplete"
+            else:
+                g.scanned = rg.scanned
+                g.top_holder_pct = rg.top_holder_pct
+                g.rug_flags = rg.rug_flags
+                g.risk_status = rg.risk_status
         except Exception:
             pass
 

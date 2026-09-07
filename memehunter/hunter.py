@@ -18,6 +18,7 @@ from .forensics import grade as forensic_grade
 from .notify import Notifier
 from .rpc import RPC
 from .sources import GeckoTerminal, goplus_security
+from .storage import atomic_json, archive_cycle
 
 STATE_PATH = Path(__file__).resolve().parent.parent / "state.json"
 
@@ -36,14 +37,18 @@ class State:
         self.path = path
         self.seen: Dict[str, Seen] = {}
         self.stages: Dict[str, Dict] = {}   # addr -> {"stage","depth"} for re-grades
+        self.tracked: Dict[str, float] = {}
+        self.track_cursor = 0
         self._load()
 
     def _load(self) -> None:
         try:
-            raw = json.loads(self.path.read_text())
+            raw = json.loads(self.path.read_text(encoding="utf-8"))
             if isinstance(raw, dict) and ("seen" in raw or "stages" in raw):
                 self.seen = {k: Seen(**v) for k, v in raw.get("seen", {}).items()}
                 self.stages = raw.get("stages", {}) or {}
+                self.tracked = raw.get("tracked", {}) or {}
+                self.track_cursor = int(raw.get("track_cursor", 0))
             else:  # legacy flat {addr: Seen}
                 self.seen = {k: Seen(**v) for k, v in raw.items()}
                 self.stages = {}
@@ -53,12 +58,14 @@ class State:
 
     def save(self) -> None:
         try:
-            self.path.write_text(json.dumps({
+            atomic_json(self.path, {
                 "seen": {k: vars(v) for k, v in self.seen.items()},
                 "stages": self.stages,
-            }))
+                "tracked": self.tracked,
+                "track_cursor": self.track_cursor,
+            })
         except OSError:
-            pass
+            raise  # failed persistence must be visible to the service supervisor
 
     def regrade(self, addr: str, stage: str, depth: float) -> Optional[str]:
         """Compare a fresh forensic stage/depth to what we last recorded for
@@ -107,15 +114,16 @@ class State:
 
 
 class Hunter:
-    def __init__(self) -> None:
+    def __init__(self, *, notify: bool = True) -> None:
         self.gt = GeckoTerminal()
         self.rpc = RPC() if SETTINGS.enable_forensics else None
         self.state = State()
-        self.notifier = Notifier()
+        self.notifier = Notifier(telegram=notify)
         self.t = SETTINGS.thresholds
         self.cycle = 0
         # cold start = no prior state (fresh process / first-ever cron run)
         self.cold_start = len(self.state.seen) == 0
+        self._track_cursor = self.state.track_cursor
 
     def _apply_forensics(self, actionable) -> int:
         """Stage each actionable verdict (GRADUATED/GRADUATING/FRESH) and reject
@@ -125,6 +133,7 @@ class Hunter:
         Returns the number of pools rejected as RUG-RISK."""
         if not SETTINGS.enable_forensics or self.rpc is None:
             return 0
+        self.rpc.deadline = time.monotonic() + 45
         rejected = 0
         for i, v in enumerate(actionable):
             try:
@@ -167,21 +176,43 @@ class Hunter:
     def _collect(self) -> Dict[str, "object"]:
         # merge new + trending, de-dup by pool address (trending flags momentum)
         pools = {}
+        self.gt.requests.clear()
         for p in self.gt.new_pools():
             if p.address:
+                p.discovery_sources.append("new")
                 pools[p.address] = p
         for p in self.gt.trending_pools():
             if p.address:
                 pools.setdefault(p.address, p)
+                pools[p.address].discovery_sources.append("trending")
+        # Revisit prior alerts even after they drop off discovery/score boards.
+        now = time.time()
+        self.state.tracked = {a: ts for a, ts in self.state.tracked.items() if now - ts < 7 * 86400}
+        missing = sorted(a for a in self.state.tracked if a not in pools)
+        if missing:
+            for i in range(min(3, len(missing))):
+                address = missing[(self._track_cursor + i) % len(missing)]
+                p = self.gt.pool(address)
+                if p is not None:
+                    p.discovery_sources.append("tracked")
+                    pools[address] = p
+            self._track_cursor = (self._track_cursor + 3) % len(missing)
+            self.state.track_cursor = self._track_cursor
+        for address in self.state.tracked.keys() & pools.keys():
+            if "tracked" not in pools[address].discovery_sources:
+                pools[address].discovery_sources.append("tracked")
         return pools
 
     def run_cycle(self) -> None:
         self.cycle += 1
         pools = self._collect()
+        if self.gt.requests and not any(r["ok"] for r in self.gt.requests):
+            archive_cycle(pools, [], self.gt.requests, {"source_errors": len(self.gt.requests)})
+            raise RuntimeError("All market sources failed; previous feed and state retained")
         verdicts = []
         for p in pools.values():
             age = p.age_min
-            if age is not None and age > self.t.max_age_min:
+            if age is not None and age > self.t.max_age_min and not {"trending", "tracked"}.intersection(p.discovery_sources):
                 continue  # outside discovery window
             gp = None
             # only spend a GoPlus call on things that already look interesting
@@ -198,15 +229,18 @@ class Hunter:
         )
         # third stage: graduation grade + on-chain rug gate. Stages every
         # actionable pool and drops RUG-RISK ones before they can alert.
-        rug_rejected = self._apply_forensics(actionable)
+        monitoring = [v for v in verdicts if "tracked" in v.pool.discovery_sources and v not in actionable]
+        graded = actionable + monitoring
+        rug_rejected = self._apply_forensics(graded)
         # re-grade: fire on any stage change vs last cycle (BEFORE dropping
         # rug-risk, so a GRADUATING->RUG-RISK downgrade still alerts).
-        transitions = self._detect_transitions(actionable)
+        transitions = self._detect_transitions(graded)
         actionable = [v for v in actionable if not v.rejected]
         fired = 0
         suppressed = 0
         fired_verdicts = []
         for v in actionable:
+            self.state.tracked[v.pool.address] = time.time()
             age = v.pool.age_min
             # cold-start guard: on the first run, silently record anything older
             # than the cold-start window so we don't flood on boot.
@@ -228,17 +262,15 @@ class Hunter:
         self.cold_start = False  # only the first cycle is a cold start
 
         rejected = sum(1 for v in verdicts if v.rejected)
+        stats = {"pools": len(pools), "actionable": len(actionable), "alerted": fired,
+                 "filtered": rejected, "rug_filtered": rug_rejected,
+                 "source_errors": sum(not r["ok"] for r in self.gt.requests)}
+        archive_cycle(pools, verdicts, self.gt.requests, stats)
         # publish the web feed (feed/signals.json — committed by the cloud cron)
         write_feed(
             actionable,
             fired_verdicts,
-            {
-                "pools": len(pools),
-                "actionable": len(actionable),
-                "alerted": fired,
-                "filtered": rejected,
-                "rug_filtered": rug_rejected,
-            },
+            stats,
             transitions=transitions,
         )
         cold = f" · {suppressed} cold-start-suppressed" if suppressed else ""

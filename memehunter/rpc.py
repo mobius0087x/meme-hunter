@@ -39,20 +39,28 @@ class RPC:
         self._session.headers.update(_UA)
         self._code_cache: Dict[str, bool] = {}
         self._router_cache: Dict[str, bool] = {}
+        self.deadline = None
+        self.errors = 0
 
     def call(self, method: str, params: list, retries: int = 3) -> Any:
         self._id += 1
         body = {"jsonrpc": "2.0", "id": self._id, "method": method, "params": params}
         for attempt in range(retries):
+            remaining = self.deadline - time.monotonic() if self.deadline is not None else 30
+            if remaining <= 0:
+                self.errors += 1
+                return None
             try:
-                r = self._session.post(self.url, json=body, timeout=30)
+                r = self._session.post(self.url, json=body, timeout=min(10, remaining))
                 r.raise_for_status()
                 d = r.json()
                 if "error" in d:
+                    self.errors += 1
                     return None
                 return d.get("result")
             except (requests.RequestException, ValueError):
                 time.sleep(0.4 * (attempt + 1))
+        self.errors += 1
         return None
 
     # ---- primitives ----------------------------------------------------
@@ -68,7 +76,11 @@ class RPC:
 
     def is_contract(self, addr: str) -> bool:
         if addr not in self._code_cache:
-            self._code_cache[addr] = self.get_code(addr) != "0x"
+            before = self.errors
+            value = self.get_code(addr) != "0x"
+            if self.errors != before:
+                return False
+            self._code_cache[addr] = value
         return self._code_cache[addr]
 
     def total_supply(self, token: str) -> Optional[int]:
@@ -89,8 +101,10 @@ class RPC:
         distinct token contracts in the last `span` blocks). Cached."""
         if addr in self._router_cache:
             return self._router_cache[addr]
+        before = self.errors
         if not self.is_contract(addr):
-            self._router_cache[addr] = False
+            if self.errors == before:
+                self._router_cache[addr] = False
             return False
         top = "0x" + addr[2:].rjust(64, "0")
         toks: set[str] = set()
@@ -106,7 +120,8 @@ class RPC:
                 toks.add(lg["address"].lower())
             b = hi + 1
         infra = len(toks) >= threshold
-        self._router_cache[addr] = infra
+        if self.errors == before:
+            self._router_cache[addr] = infra
         return infra
 
     def is_infra(self, addr: str, latest: int) -> bool:
