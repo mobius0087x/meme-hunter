@@ -1,5 +1,7 @@
 # Robinhood Chain Meme Hunter
 
+**Windows / CC / Codex 接手先读：[MEMO.md](MEMO.md)**，再按 [WINDOWS.md](WINDOWS.md) 安装与验收。
+
 Robinhood Chain 的只读池监控、注意力评分和可复核样本采集。输出本地日志、可选Telegram和Web feed；不签名、不下单。WATCH/ALERT/HOT是关注等级，行情成交量和TVL都不是可执行报价。
 
 ## 当前运行与Windows迁移
