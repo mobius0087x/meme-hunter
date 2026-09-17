@@ -2,72 +2,70 @@
  "version": 1,
  "rules_version": "2026-09-07-disjoint-v2",
  "chain": "robinhood",
- "generated_at": 1789677816,
+ "generated_at": 1789686855,
  "cycle": {
   "pools": 43,
-  "actionable": 4,
-  "alerted": 4,
-  "filtered": 20,
+  "actionable": 2,
+  "alerted": 2,
+  "filtered": 21,
   "rug_filtered": 0,
-  "source_errors": 7
+  "source_errors": 8
  },
  "board": [
   {
-   "ts": 1789677816,
+   "ts": 1789686855,
    "tier": "WATCH",
    "stage": "FRESH",
-   "score": 63.5,
-   "symbol": "AD",
-   "name": "Artificial Doge",
-   "pool": "0x2a4e49b6f4026be2d9c4cc273f389d986256e27b18950a8967d1daa095b27978",
-   "token": "0x63ffd4aa844f4befcee1b4606e467d1d209a926b",
-   "dex": "uniswap-v4-robinhood",
+   "score": 54.6,
+   "symbol": "REAL",
+   "name": "Reales",
+   "pool": "0x170991c5cab114d9261d6ee2b6041fe8d564ae32780fd08ca74c3bdd5e850c2c",
+   "token": "0x4c380fa3b88f35ceae70d984d0b7aecc85e5a4c5",
+   "dex": "uniswap-pools-trade",
    "quote": "WETH",
    "quote_address": "0x0000000000000000000000000000000000000000",
    "quote_identity_verified": false,
    "pool_kind": "singleton_pool_id",
-   "observed_at": "2026-09-17T20:42:55.804581+00:00",
+   "observed_at": "2026-09-17T23:13:30.663638+00:00",
    "discovery_sources": [
-    "trending"
+    "new"
    ],
    "segment": "new_pool",
    "token_age_min": null,
-   "vol_m5_usd": 1050.1894062801,
-   "capacity_proxy_usd": 2.1003788125602,
+   "vol_m5_usd": 8640.7743717598,
+   "capacity_proxy_usd": 17.281548743519604,
    "capacity_basis": "trailing_5m_average_volume_not_executable_quote",
    "score_parts": {
-    "turnover": 30.0,
-    "buy_pressure": 0.4692737430167604,
+    "turnover": 11.491526545680337,
+    "buy_pressure": 18.0,
     "buyers": 15.0,
     "acceleration": 0.0,
-    "price": 10.0,
-    "narrative": 8.0,
-    "freshness": 0.0
+    "price": 7.07765,
+    "narrative": 0.0,
+    "freshness": 3.0
    },
-   "liquidity_usd": 38695.28,
-   "fdv_usd": 243743.86,
-   "vol_h1_usd": 85905.89,
-   "price_usd": 0.000243975999951265,
-   "price_change_h1": 299.35,
-   "age_min": 215.1,
-   "buys_h1": 458,
-   "sells_h1": 436,
-   "buyers_h1": 317,
+   "liquidity_usd": 11278.89,
+   "fdv_usd": 35559.02,
+   "vol_h1_usd": 8640.77,
+   "price_usd": 3.55590249045783e-05,
+   "price_change_h1": 141.55,
+   "age_min": 3.1,
+   "buys_h1": 19,
+   "sells_h1": 0,
+   "buyers_h1": 19,
    "signals": [
-    "turnover 2.2x liq/1h",
-    "317 unique buyers/1h",
-    "+299%/1h uptrend",
-    "on-meta name",
-    "(tier capped: has warnings)"
+    "95% buys (19/19)",
+    "19 unique buyers/1h",
+    "+142%/1h uptrend"
    ],
    "warnings": [
     "pool custody/holder checks unsupported — risk unverified",
-    "capacity proxy $2/min < $100 size (5m average, no fill guarantee)"
+    "GoPlus: contract not open-source"
    ],
    "forensic": {
     "stage": "FRESH",
-    "graduation_score": 21.0,
-    "depth_usd": 38801.18,
+    "graduation_score": 6.0,
+    "depth_usd": 11251.9,
     "material_pools": 1,
     "used_as_quote": false,
     "top_holder_pct": null,
@@ -79,68 +77,68 @@
    },
    "transition": null,
    "links": {
-    "dexscreener": "https://dexscreener.com/robinhood/0x2a4e49b6f4026be2d9c4cc273f389d986256e27b18950a8967d1daa095b27978",
-    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x2a4e49b6f4026be2d9c4cc273f389d986256e27b18950a8967d1daa095b27978",
-    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x63ffd4aa844f4befcee1b4606e467d1d209a926b&chain=robinhood"
+    "dexscreener": "https://dexscreener.com/robinhood/0x170991c5cab114d9261d6ee2b6041fe8d564ae32780fd08ca74c3bdd5e850c2c",
+    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x170991c5cab114d9261d6ee2b6041fe8d564ae32780fd08ca74c3bdd5e850c2c",
+    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x4c380fa3b88f35ceae70d984d0b7aecc85e5a4c5&chain=robinhood"
    }
   },
   {
-   "ts": 1789677816,
+   "ts": 1789686855,
    "tier": "WATCH",
    "stage": "FRESH",
-   "score": 59.3,
-   "symbol": "FL",
-   "name": "fomo launcher",
-   "pool": "0xa64e2e2e8e81ae114a983d8e16b4e263bdc56342",
-   "token": "0x66e973891488117397755643d010c8df93053755",
+   "score": 43.7,
+   "symbol": "AI",
+   "name": "Artificial Inu",
+   "pool": "0x0603135b4c59b2b5d1d43c789ff5b6a2d17f8986",
+   "token": "0x241581609e8d7ae42c212578452b1ed8d17a268d",
    "dex": "pons-v2",
-   "quote": "WETH",
-   "quote_address": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+   "quote": "NVDA",
+   "quote_address": "0xd0601ce157db5bdc3162bbac2a2c8af5320d9eec",
    "quote_identity_verified": false,
    "pool_kind": "pool_contract",
-   "observed_at": "2026-09-17T20:42:53.486470+00:00",
+   "observed_at": "2026-09-17T23:13:30.663485+00:00",
    "discovery_sources": [
     "new"
    ],
    "segment": "new_pool",
    "token_age_min": null,
-   "vol_m5_usd": 2054.3411567851,
-   "capacity_proxy_usd": 4.1086823135702,
+   "vol_m5_usd": 7073.2269089452,
+   "capacity_proxy_usd": 14.146453817890402,
    "capacity_basis": "trailing_5m_average_volume_not_executable_quote",
    "score_parts": {
-    "turnover": 23.88026830745439,
-    "buy_pressure": 3.661971830985915,
+    "turnover": 25.280852488456773,
+    "buy_pressure": 0.0,
     "buyers": 15.0,
     "acceleration": 0.0,
-    "price": 9.7376,
+    "price": 0.3789,
     "narrative": 0.0,
-    "freshness": 7.0
+    "freshness": 3.0
    },
-   "liquidity_usd": 12117.57,
-   "fdv_usd": 12603.15,
-   "vol_h1_usd": 19291.39,
-   "price_usd": 1.30824450542977e-05,
-   "price_change_h1": 194.75,
-   "age_min": 5.6,
-   "buys_h1": 126,
-   "sells_h1": 86,
-   "buyers_h1": 110,
+   "liquidity_usd": 4196.79,
+   "fdv_usd": 4626.19,
+   "vol_h1_usd": 7073.23,
+   "price_usd": 4.62618642257426e-06,
+   "price_change_h1": 7.58,
+   "age_min": 2.8,
+   "buys_h1": 33,
+   "sells_h1": 36,
+   "buyers_h1": 30,
    "signals": [
-    "turnover 1.6x liq/1h",
-    "110 unique buyers/1h",
-    "+195%/1h uptrend"
+    "turnover 1.7x liq/1h",
+    "30 unique buyers/1h"
    ],
    "warnings": [
-    "capacity proxy $4/min < $100 size (5m average, no fill guarantee)",
+    "very new (2.8m) — data thin",
+    "quoted in NVDA (not a blue-chip quote)",
     "GoPlus: contract not open-source"
    ],
    "forensic": {
     "stage": "FRESH",
-    "graduation_score": 6.9,
-    "depth_usd": 9503.71,
+    "graduation_score": 0.9,
+    "depth_usd": 4196.79,
     "material_pools": 0,
     "used_as_quote": false,
-    "top_holder_pct": 1.9,
+    "top_holder_pct": 5.39,
     "rug_scanned": true,
     "rug_flags": [],
     "risk_status": "holder_heuristics_only",
@@ -149,65 +147,67 @@
    },
    "transition": null,
    "links": {
-    "dexscreener": "https://dexscreener.com/robinhood/0xa64e2e2e8e81ae114a983d8e16b4e263bdc56342",
-    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0xa64e2e2e8e81ae114a983d8e16b4e263bdc56342",
-    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x66e973891488117397755643d010c8df93053755&chain=robinhood"
+    "dexscreener": "https://dexscreener.com/robinhood/0x0603135b4c59b2b5d1d43c789ff5b6a2d17f8986",
+    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x0603135b4c59b2b5d1d43c789ff5b6a2d17f8986",
+    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x241581609e8d7ae42c212578452b1ed8d17a268d&chain=robinhood"
    }
-  },
+  }
+ ],
+ "alerts": [
   {
-   "ts": 1789677816,
+   "ts": 1789686855,
    "tier": "WATCH",
    "stage": "FRESH",
-   "score": 56.0,
-   "symbol": "LIGHT",
-   "name": "Lightbringer",
-   "pool": "0x55ad71524ac7e3236384835c5c1a1412b081450429f16e817c5c339c4c6b15ab",
-   "token": "0x7e96c5d2dd964bccf631dd6abd0750da4cf52daa",
-   "dex": "pons-v2-dex",
+   "score": 54.6,
+   "symbol": "REAL",
+   "name": "Reales",
+   "pool": "0x170991c5cab114d9261d6ee2b6041fe8d564ae32780fd08ca74c3bdd5e850c2c",
+   "token": "0x4c380fa3b88f35ceae70d984d0b7aecc85e5a4c5",
+   "dex": "uniswap-pools-trade",
    "quote": "WETH",
    "quote_address": "0x0000000000000000000000000000000000000000",
    "quote_identity_verified": false,
    "pool_kind": "singleton_pool_id",
-   "observed_at": "2026-09-17T20:42:55.805329+00:00",
+   "observed_at": "2026-09-17T23:13:30.663638+00:00",
    "discovery_sources": [
-    "trending"
+    "new"
    ],
-   "segment": "active_or_tracked",
+   "segment": "new_pool",
    "token_age_min": null,
-   "vol_m5_usd": 6034.2677241069,
-   "capacity_proxy_usd": 12.0685354482138,
+   "vol_m5_usd": 8640.7743717598,
+   "capacity_proxy_usd": 17.281548743519604,
    "capacity_basis": "trailing_5m_average_volume_not_executable_quote",
    "score_parts": {
-    "turnover": 30.0,
-    "buy_pressure": 0.9787234042553195,
+    "turnover": 11.491526545680337,
+    "buy_pressure": 18.0,
     "buyers": 15.0,
     "acceleration": 0.0,
-    "price": 10.0,
+    "price": 7.07765,
     "narrative": 0.0,
-    "freshness": 0.0
+    "freshness": 3.0
    },
-   "liquidity_usd": 40608.03,
-   "fdv_usd": 201538.64,
-   "vol_h1_usd": 175908.1,
-   "price_usd": 0.000201538639429867,
-   "price_change_h1": 244.01,
-   "age_min": 4393.5,
-   "buys_h1": 493,
-   "sells_h1": 446,
-   "buyers_h1": 149,
+   "liquidity_usd": 11278.89,
+   "fdv_usd": 35559.02,
+   "vol_h1_usd": 8640.77,
+   "price_usd": 3.55590249045783e-05,
+   "price_change_h1": 141.55,
+   "age_min": 3.1,
+   "buys_h1": 19,
+   "sells_h1": 0,
+   "buyers_h1": 19,
    "signals": [
-    "turnover 4.3x liq/1h",
-    "149 unique buyers/1h",
-    "+244%/1h uptrend"
+    "95% buys (19/19)",
+    "19 unique buyers/1h",
+    "+142%/1h uptrend"
    ],
    "warnings": [
     "pool custody/holder checks unsupported — risk unverified",
-    "capacity proxy $12/min < $100 size (5m average, no fill guarantee)"
+    "GoPlus: contract not open-source"
    ],
    "forensic": {
     "stage": "FRESH",
-    "graduation_score": 18.0,
-    "depth_usd": 40608.03,
+    "graduation_score": 6.0,
+    "depth_usd": 11251.9,
     "material_pools": 1,
     "used_as_quote": false,
     "top_holder_pct": null,
@@ -219,82 +219,81 @@
    },
    "transition": null,
    "links": {
-    "dexscreener": "https://dexscreener.com/robinhood/0x55ad71524ac7e3236384835c5c1a1412b081450429f16e817c5c339c4c6b15ab",
-    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x55ad71524ac7e3236384835c5c1a1412b081450429f16e817c5c339c4c6b15ab",
-    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x7e96c5d2dd964bccf631dd6abd0750da4cf52daa&chain=robinhood"
+    "dexscreener": "https://dexscreener.com/robinhood/0x170991c5cab114d9261d6ee2b6041fe8d564ae32780fd08ca74c3bdd5e850c2c",
+    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x170991c5cab114d9261d6ee2b6041fe8d564ae32780fd08ca74c3bdd5e850c2c",
+    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x4c380fa3b88f35ceae70d984d0b7aecc85e5a4c5&chain=robinhood"
    }
   },
   {
-   "ts": 1789677816,
+   "ts": 1789686855,
    "tier": "WATCH",
    "stage": "FRESH",
-   "score": 50.2,
-   "symbol": "ZOLDIERS",
-   "name": "Zoldiers",
-   "pool": "0x1e60f6c89c36a16b8e023d325d042024eb15bb9c",
-   "token": "0xccab56b262dbecb116893ef82d2e2d1a31972e4e",
+   "score": 43.7,
+   "symbol": "AI",
+   "name": "Artificial Inu",
+   "pool": "0x0603135b4c59b2b5d1d43c789ff5b6a2d17f8986",
+   "token": "0x241581609e8d7ae42c212578452b1ed8d17a268d",
    "dex": "pons-v2",
-   "quote": "WETH",
-   "quote_address": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+   "quote": "NVDA",
+   "quote_address": "0xd0601ce157db5bdc3162bbac2a2c8af5320d9eec",
    "quote_identity_verified": false,
    "pool_kind": "pool_contract",
-   "observed_at": "2026-09-17T20:42:53.486384+00:00",
+   "observed_at": "2026-09-17T23:13:30.663485+00:00",
    "discovery_sources": [
     "new"
    ],
    "segment": "new_pool",
    "token_age_min": null,
-   "vol_m5_usd": 242.86779,
-   "capacity_proxy_usd": 0.48573558000000006,
+   "vol_m5_usd": 7073.2269089452,
+   "capacity_proxy_usd": 14.146453817890402,
    "capacity_basis": "trailing_5m_average_volume_not_executable_quote",
    "score_parts": {
-    "turnover": 28.225847611572316,
+    "turnover": 25.280852488456773,
     "buy_pressure": 0.0,
     "buyers": 15.0,
     "acceleration": 0.0,
-    "price": -0.010199999999999999,
+    "price": 0.3789,
     "narrative": 0.0,
-    "freshness": 7.0
+    "freshness": 3.0
    },
-   "liquidity_usd": 4006.98,
-   "fdv_usd": 4491.73,
-   "vol_h1_usd": 7540.02,
-   "price_usd": 4.49172634670103e-06,
-   "price_change_h1": -0.05,
-   "age_min": 5.1,
-   "buys_h1": 24,
-   "sells_h1": 31,
-   "buyers_h1": 24,
+   "liquidity_usd": 4196.79,
+   "fdv_usd": 4626.19,
+   "vol_h1_usd": 7073.23,
+   "price_usd": 4.62618642257426e-06,
+   "price_change_h1": 7.58,
+   "age_min": 2.8,
+   "buys_h1": 33,
+   "sells_h1": 36,
+   "buyers_h1": 30,
    "signals": [
-    "turnover 1.9x liq/1h",
-    "24 unique buyers/1h"
+    "turnover 1.7x liq/1h",
+    "30 unique buyers/1h"
    ],
    "warnings": [
-    "capacity proxy $0/min < $100 size (5m average, no fill guarantee)",
+    "very new (2.8m) — data thin",
+    "quoted in NVDA (not a blue-chip quote)",
     "GoPlus: contract not open-source"
    ],
    "forensic": {
     "stage": "FRESH",
-    "graduation_score": 0.5,
-    "depth_usd": 4006.98,
+    "graduation_score": 0.9,
+    "depth_usd": 4196.79,
     "material_pools": 0,
     "used_as_quote": false,
-    "top_holder_pct": null,
-    "rug_scanned": false,
+    "top_holder_pct": 5.39,
+    "rug_scanned": true,
     "rug_flags": [],
-    "risk_status": "unverified",
+    "risk_status": "holder_heuristics_only",
     "depth_basis": "aggregate_pool_tvl_not_executable_depth",
     "stage_basis": "market_maturity_heuristic_not_protocol_graduation"
    },
    "transition": null,
    "links": {
-    "dexscreener": "https://dexscreener.com/robinhood/0x1e60f6c89c36a16b8e023d325d042024eb15bb9c",
-    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x1e60f6c89c36a16b8e023d325d042024eb15bb9c",
-    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0xccab56b262dbecb116893ef82d2e2d1a31972e4e&chain=robinhood"
+    "dexscreener": "https://dexscreener.com/robinhood/0x0603135b4c59b2b5d1d43c789ff5b6a2d17f8986",
+    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x0603135b4c59b2b5d1d43c789ff5b6a2d17f8986",
+    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x241581609e8d7ae42c212578452b1ed8d17a268d&chain=robinhood"
    }
-  }
- ],
- "alerts": [
+  },
   {
    "ts": 1789677816,
    "tier": "WATCH",
@@ -7167,129 +7166,62 @@
     "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x9135d76893a21d154694c682b10a51951c3d1a21",
     "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x18a66c43c93e73be5071d71996781854ad406ec4&chain=robinhood"
    }
-  },
+  }
+ ],
+ "transitions": [
   {
-   "ts": 1789247139,
-   "tier": "WATCH",
-   "stage": "FRESH",
-   "score": 47.5,
-   "symbol": "RWI",
-   "name": "Real World Impact",
-   "pool": "0x174e45f5acd95cb53b59780e95bd4916dfa7af31",
-   "token": "0x929b289105dc320e3daeea0d41390559885e8062",
-   "dex": "pons-v2",
+   "ts": 1789686855,
+   "tier": "ignore",
+   "stage": "GRADUATING",
+   "score": 9.4,
+   "symbol": "NVDAx3L",
+   "name": "NVDA 3x Long",
+   "pool": "0x59de14b62a322e317e753fa23a23b72db0b8c4b593649e69ebcef09c456e2718",
+   "token": "0xf51fb54de60f6e16252e852a5ed0e60b8307606a",
+   "dex": "uniswap-v4-robinhood",
    "quote": "USDG",
    "quote_address": "0x5fc5360d0400a0fd4f2af552add042d716f1d168",
    "quote_identity_verified": false,
-   "pool_kind": "pool_contract",
-   "observed_at": "2026-09-12T21:04:30.425762+00:00",
-   "discovery_sources": [
-    "trending"
-   ],
-   "segment": "new_pool",
-   "token_age_min": null,
-   "vol_m5_usd": 12449.9987050405,
-   "capacity_proxy_usd": 24.899997410081,
-   "capacity_basis": "trailing_5m_average_volume_not_executable_quote",
-   "score_parts": {
-    "turnover": 30.0,
-    "buy_pressure": 3.5210008936550485,
-    "buyers": 15.0,
-    "acceleration": 0.0,
-    "price": -8.0,
-    "narrative": 0.0,
-    "freshness": 7.0
-   },
-   "liquidity_usd": 12483.55,
-   "fdv_usd": 16121.94,
-   "vol_h1_usd": 90540.91,
-   "price_usd": 1.6121944439749e-05,
-   "price_change_h1": 370.38,
-   "age_min": 10.2,
-   "buys_h1": 658,
-   "sells_h1": 460,
-   "buyers_h1": 319,
-   "signals": [
-    "turnover 7.3x liq/1h",
-    "319 unique buyers/1h"
-   ],
-   "warnings": [
-    "capacity proxy $25/min < $100 size (5m average, no fill guarantee)",
-    "GoPlus: contract not open-source"
-   ],
-   "forensic": {
-    "stage": "FRESH",
-    "graduation_score": 12.6,
-    "depth_usd": 12483.55,
-    "material_pools": 1,
-    "used_as_quote": false,
-    "top_holder_pct": null,
-    "rug_scanned": false,
-    "rug_flags": [],
-    "risk_status": "unverified",
-    "depth_basis": "aggregate_pool_tvl_not_executable_depth",
-    "stage_basis": "market_maturity_heuristic_not_protocol_graduation"
-   },
-   "transition": null,
-   "links": {
-    "dexscreener": "https://dexscreener.com/robinhood/0x174e45f5acd95cb53b59780e95bd4916dfa7af31",
-    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x174e45f5acd95cb53b59780e95bd4916dfa7af31",
-    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x929b289105dc320e3daeea0d41390559885e8062&chain=robinhood"
-   }
-  },
-  {
-   "ts": 1789247139,
-   "tier": "WATCH",
-   "stage": "FRESH",
-   "score": 45.5,
-   "symbol": "UNITY",
-   "name": "Unity",
-   "pool": "0xdd9d3825136b7d2728082115ff21596a1f696fcfb99e85ecc9daca58286cb897",
-   "token": "0x5909eeff6ac40b33ac7b088602e05edf591223ac",
-   "dex": "pons-v2-dex",
-   "quote": "WETH",
-   "quote_address": "0x0000000000000000000000000000000000000000",
-   "quote_identity_verified": false,
    "pool_kind": "singleton_pool_id",
-   "observed_at": "2026-09-12T21:04:30.425170+00:00",
+   "observed_at": "2026-09-17T23:13:38.116672+00:00",
    "discovery_sources": [
-    "trending"
+    "tracked"
    ],
-   "segment": "new_pool",
+   "segment": "active_or_tracked",
    "token_age_min": null,
-   "vol_m5_usd": 187829.840271238,
-   "capacity_proxy_usd": 375.659680542476,
+   "vol_m5_usd": 918.3442890989,
+   "capacity_proxy_usd": 1.8366885781978002,
    "capacity_basis": "trailing_5m_average_volume_not_executable_quote",
    "score_parts": {
-    "turnover": 30.0,
-    "buy_pressure": 1.4723604925334044,
-    "buyers": 15.0,
-    "acceleration": 0.0,
-    "price": -8.0,
+    "turnover": 0.14194147596101123,
+    "buy_pressure": 0.0,
+    "buyers": 2,
+    "acceleration": 7.272678570878021,
+    "price": -0.008799999999999999,
     "narrative": 0.0,
-    "freshness": 7.0
+    "freshness": 0.0
    },
-   "liquidity_usd": 46456.09,
-   "fdv_usd": 250032.31,
-   "vol_h1_usd": 937045.67,
-   "price_usd": 0.000251005027210351,
-   "price_change_h1": 376.75,
-   "age_min": 13.8,
-   "buys_h1": 4098,
-   "sells_h1": 3535,
-   "buyers_h1": 1302,
+   "liquidity_usd": 715093.72,
+   "fdv_usd": 658111.72,
+   "vol_h1_usd": 6766.76,
+   "price_usd": 1.09077533778295,
+   "price_change_h1": -0.04,
+   "age_min": 33389.2,
+   "buys_h1": 2,
+   "sells_h1": 34,
+   "buyers_h1": 2,
    "signals": [
-    "turnover 20.2x liq/1h",
-    "1302 unique buyers/1h"
+    "building depth $715,094 (1 pools)",
+    "accelerating 1.7x vs prior non-overlapping window"
    ],
    "warnings": [
     "pool custody/holder checks unsupported — risk unverified",
-    "GoPlus: contract not open-source"
+    "capacity proxy $2/min < $100 size (5m average, no fill guarantee)"
    ],
    "forensic": {
-    "stage": "FRESH",
-    "graduation_score": 23.3,
-    "depth_usd": 46456.09,
+    "stage": "GRADUATING",
+    "graduation_score": 38.2,
+    "depth_usd": 715093.72,
     "material_pools": 1,
     "used_as_quote": false,
     "top_holder_pct": null,
@@ -7299,15 +7231,87 @@
     "depth_basis": "aggregate_pool_tvl_not_executable_depth",
     "stage_basis": "market_maturity_heuristic_not_protocol_graduation"
    },
-   "transition": null,
+   "transition": {
+    "kind": "downgrade",
+    "from": "GRADUATED",
+    "to": "GRADUATING"
+   },
    "links": {
-    "dexscreener": "https://dexscreener.com/robinhood/0xdd9d3825136b7d2728082115ff21596a1f696fcfb99e85ecc9daca58286cb897",
-    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0xdd9d3825136b7d2728082115ff21596a1f696fcfb99e85ecc9daca58286cb897",
-    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x5909eeff6ac40b33ac7b088602e05edf591223ac&chain=robinhood"
+    "dexscreener": "https://dexscreener.com/robinhood/0x59de14b62a322e317e753fa23a23b72db0b8c4b593649e69ebcef09c456e2718",
+    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x59de14b62a322e317e753fa23a23b72db0b8c4b593649e69ebcef09c456e2718",
+    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0xf51fb54de60f6e16252e852a5ed0e60b8307606a&chain=robinhood"
    }
-  }
- ],
- "transitions": [
+  },
+  {
+   "ts": 1789686855,
+   "tier": "ignore",
+   "stage": "FRESH",
+   "score": 0.0,
+   "symbol": "TEN-EV",
+   "name": "ten-ev",
+   "pool": "0x5acb20844ca1c8c93b4e8c1aaab9dba5724527b6",
+   "token": "0x47d59029b143655cbbbeaca7f553e04e4c2ea4b5",
+   "dex": "pons-v2",
+   "quote": "TSLA",
+   "quote_address": "0x322f0929c4625ed5bad873c95208d54e1c003b2d",
+   "quote_identity_verified": false,
+   "pool_kind": "pool_contract",
+   "observed_at": "2026-09-17T23:13:40.675906+00:00",
+   "discovery_sources": [
+    "tracked"
+   ],
+   "segment": "active_or_tracked",
+   "token_age_min": null,
+   "vol_m5_usd": 0.0,
+   "capacity_proxy_usd": 0.0,
+   "capacity_basis": "trailing_5m_average_volume_not_executable_quote",
+   "score_parts": {
+    "turnover": 0.0,
+    "buy_pressure": 0.0,
+    "buyers": 0,
+    "acceleration": 0.0,
+    "price": 0.0,
+    "narrative": 0.0,
+    "freshness": 0.0
+   },
+   "liquidity_usd": 0.0,
+   "fdv_usd": 45413.52,
+   "vol_h1_usd": 0.0,
+   "price_usd": 4.541352055e-05,
+   "price_change_h1": 0.0,
+   "age_min": 4230.9,
+   "buys_h1": 0,
+   "sells_h1": 0,
+   "buyers_h1": 0,
+   "signals": [],
+   "warnings": [
+    "capacity proxy $0/min < $100 size (5m average, no fill guarantee)",
+    "quoted in TSLA (not a blue-chip quote)"
+   ],
+   "forensic": {
+    "stage": "FRESH",
+    "graduation_score": 0.0,
+    "depth_usd": 0.0,
+    "material_pools": 0,
+    "used_as_quote": false,
+    "top_holder_pct": null,
+    "rug_scanned": false,
+    "rug_flags": [],
+    "risk_status": "unverified",
+    "depth_basis": "aggregate_pool_tvl_not_executable_depth",
+    "stage_basis": "market_maturity_heuristic_not_protocol_graduation"
+   },
+   "transition": {
+    "kind": "downgrade",
+    "from": "FRESH",
+    "to": "FRESH"
+   },
+   "links": {
+    "dexscreener": "https://dexscreener.com/robinhood/0x5acb20844ca1c8c93b4e8c1aaab9dba5724527b6",
+    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x5acb20844ca1c8c93b4e8c1aaab9dba5724527b6",
+    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x47d59029b143655cbbbeaca7f553e04e4c2ea4b5&chain=robinhood"
+   }
+  },
   {
    "ts": 1789677816,
    "tier": "ignore",
@@ -11461,151 +11465,6 @@
     "dexscreener": "https://dexscreener.com/robinhood/0xd3d10f1c33b8a58f86466d75f75fcde4b09b42064e611b8c774ab73f463131d9",
     "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0xd3d10f1c33b8a58f86466d75f75fcde4b09b42064e611b8c774ab73f463131d9",
     "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x211e018d6d324ee306a99f6cc59cd4f4c7632d3e&chain=robinhood"
-   }
-  },
-  {
-   "ts": 1789367661,
-   "tier": "ignore",
-   "stage": "FRESH",
-   "score": 19.2,
-   "symbol": "XL",
-   "name": "X Link",
-   "pool": "0x713aba0fa3f49c07d2f60c064464868ac7798f57c3cd3298f784db8b4054d503",
-   "token": "0x1cdb289befdfac8af945a288bcdccc382cb34d32",
-   "dex": "pons-v2-dex",
-   "quote": "USDG",
-   "quote_address": "0x5fc5360d0400a0fd4f2af552add042d716f1d168",
-   "quote_identity_verified": false,
-   "pool_kind": "singleton_pool_id",
-   "observed_at": "2026-09-14T06:33:33.820526+00:00",
-   "discovery_sources": [
-    "trending",
-    "tracked"
-   ],
-   "segment": "active_or_tracked",
-   "token_age_min": null,
-   "vol_m5_usd": 0.0,
-   "capacity_proxy_usd": 0.0,
-   "capacity_basis": "trailing_5m_average_volume_not_executable_quote",
-   "score_parts": {
-    "turnover": 4.140447303607429,
-    "buy_pressure": 0.0,
-    "buyers": 15.0,
-    "acceleration": 0.0,
-    "price": 0.0633,
-    "narrative": 0.0,
-    "freshness": 0.0
-   },
-   "liquidity_usd": 76879.03,
-   "fdv_usd": 972333.95,
-   "vol_h1_usd": 21220.91,
-   "price_usd": 0.000976103972623484,
-   "price_change_h1": 1.27,
-   "age_min": 752.4,
-   "buys_h1": 104,
-   "sells_h1": 105,
-   "buyers_h1": 67,
-   "signals": [
-    "67 unique buyers/1h"
-   ],
-   "warnings": [
-    "pool custody/holder checks unsupported — risk unverified",
-    "capacity proxy $0/min < $100 size (5m average, no fill guarantee)"
-   ],
-   "forensic": {
-    "stage": "FRESH",
-    "graduation_score": 26.0,
-    "depth_usd": 76879.03,
-    "material_pools": 1,
-    "used_as_quote": false,
-    "top_holder_pct": null,
-    "rug_scanned": false,
-    "rug_flags": [],
-    "risk_status": "unsupported_pool_identity",
-    "depth_basis": "aggregate_pool_tvl_not_executable_depth",
-    "stage_basis": "market_maturity_heuristic_not_protocol_graduation"
-   },
-   "transition": {
-    "kind": "upgrade",
-    "from": "COOLING",
-    "to": "FRESH"
-   },
-   "links": {
-    "dexscreener": "https://dexscreener.com/robinhood/0x713aba0fa3f49c07d2f60c064464868ac7798f57c3cd3298f784db8b4054d503",
-    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0x713aba0fa3f49c07d2f60c064464868ac7798f57c3cd3298f784db8b4054d503",
-    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x1cdb289befdfac8af945a288bcdccc382cb34d32&chain=robinhood"
-   }
-  },
-  {
-   "ts": 1789348653,
-   "tier": "ignore",
-   "stage": "GRADUATING",
-   "score": 17.1,
-   "symbol": "LPAD",
-   "name": "Launchpad.meme",
-   "pool": "0xba25e3dd3a9f70d2272d691d6f2dde5c5534ad3d",
-   "token": "0x3c68382e757193f6ddd12a72dcf0adf93c961769",
-   "dex": "uniswap-v3-robinhood",
-   "quote": "WETH",
-   "quote_address": "0x0bd7d308f8e1639fab988df18a8011f41eacad73",
-   "quote_identity_verified": false,
-   "pool_kind": "pool_contract",
-   "observed_at": "2026-09-14T01:16:38.844317+00:00",
-   "discovery_sources": [
-    "trending",
-    "tracked"
-   ],
-   "segment": "active_or_tracked",
-   "token_age_min": null,
-   "vol_m5_usd": 930.0824000677,
-   "capacity_proxy_usd": 1.8601648001353999,
-   "capacity_basis": "trailing_5m_average_volume_not_executable_quote",
-   "score_parts": {
-    "turnover": 6.425835759365405,
-    "buy_pressure": 1.5841584158415856,
-    "buyers": 15.0,
-    "acceleration": 0.0,
-    "price": -5.9088,
-    "narrative": 0.0,
-    "freshness": 0.0
-   },
-   "liquidity_usd": 66896.13,
-   "fdv_usd": 352256.08,
-   "vol_h1_usd": 28657.57,
-   "price_usd": 0.000359001055415422,
-   "price_change_h1": -29.54,
-   "age_min": 4707.6,
-   "buys_h1": 109,
-   "sells_h1": 92,
-   "buyers_h1": 89,
-   "signals": [
-    "89 unique buyers/1h"
-   ],
-   "warnings": [
-    "capacity proxy $2/min < $100 size (5m average, no fill guarantee)"
-   ],
-   "forensic": {
-    "stage": "GRADUATING",
-    "graduation_score": 31.3,
-    "depth_usd": 80705.66,
-    "material_pools": 2,
-    "used_as_quote": false,
-    "top_holder_pct": null,
-    "rug_scanned": false,
-    "rug_flags": [],
-    "risk_status": "unverified",
-    "depth_basis": "aggregate_pool_tvl_not_executable_depth",
-    "stage_basis": "market_maturity_heuristic_not_protocol_graduation"
-   },
-   "transition": {
-    "kind": "upgrade",
-    "from": "FRESH",
-    "to": "GRADUATING"
-   },
-   "links": {
-    "dexscreener": "https://dexscreener.com/robinhood/0xba25e3dd3a9f70d2272d691d6f2dde5c5534ad3d",
-    "geckoterminal": "https://www.geckoterminal.com/robinhood/pools/0xba25e3dd3a9f70d2272d691d6f2dde5c5534ad3d",
-    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0x3c68382e757193f6ddd12a72dcf0adf93c961769&chain=robinhood"
    }
   }
  ]
